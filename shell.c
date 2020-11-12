@@ -18,7 +18,7 @@ int main(void)
 
 	while (1)
 	{
-		write(STDOUT_FILENO, PROMPT, 3);
+		write(STDOUT_FILENO, PROMPT, 1);
 		if (getline(&buffer, &size, stdin) == -1)
 			perror("ERROR: could not read from input\n"), exit(98);
 
