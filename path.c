@@ -85,32 +85,29 @@ char *_getenv(const char *name)
 char *path(char *av0)
 {
 	struct stat st;
-	char *path, *test;
+	char *path;
 	char *token, *result;
 	char *delimiter = ":\n";
+	char *command;
 
 	if (stat(av0, &st) == 0)
 		return (av0);
 
+	command = str_concat("/", av0);
 	path = _getenv("PATH");
 	token = strtok(path, delimiter);
 	while (token)
 	{
-		token = str_concat(token, "/");
-		printf("token = %s\n", token);
-		test = str_concat(token, av0);
-		if (stat(test, &st) == 0)
-		{
-			free(test);
+		result = str_concat(token, command);
+		if (stat(result, &st) == 0)
 			break;
-		}
-		free(token), free(test);
+		free(result);
 		token = strtok(NULL, delimiter);
 	}
 	if (token == NULL)
 		perror("./hsh");
 
-	result = str_concat(token, av0);
+	free(command);
 	free(path);
 	return (result);
 }
@@ -124,5 +121,6 @@ int main(void)
 	printf("Test1: %s\n", test1);
 	test2 = path("ls");
 	printf("Test2: %s\n", test2);
+	free(test2);
 	return (0);
 }
