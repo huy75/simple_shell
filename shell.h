@@ -15,7 +15,7 @@
 
 #define BUFSIZE 1024
 #define ENV extern char **environ
-#define PROMPT "$"
+#define PROMPT "$ "
 
 /**
  * struct list_s - singly linked list

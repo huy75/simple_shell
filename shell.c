@@ -1,4 +1,4 @@
-#include "practice.h"
+#include "shell.h"
 
 /**
  * main - simple shell
@@ -18,9 +18,9 @@ int main(void)
 
 	while (1)
 	{
-		write(STDOUT_FILENO, PROMPT, 1);
+		write(STDOUT_FILENO, PROMPT, sizeof(PROMPT));
 		if (getline(&buffer, &size, stdin) == -1)
-			perror("ERROR: could not read from input\n"), exit(98);
+			return (1);
 
 		token = strtok(buffer, delimiters);
 
