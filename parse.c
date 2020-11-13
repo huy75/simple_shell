@@ -22,7 +22,6 @@ char **parseBuffer(char *buffer)
 
 	for (idx = 0; token; idx++)
 	{
-		printf("token %i: %s\n", idx, token);
 		av[idx] = token;
 /*
 		if ((idx + 1) == modTks)

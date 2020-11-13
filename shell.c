@@ -26,7 +26,6 @@ int main(int argc, char **argv, char **env)
 		token = parseBuffer(buffer);
 		rVal = runExec(token, env);
 		lineCount++;
-		printf("return value: %i\n", rVal);
 
 		if (rVal)
 			printErr(token, argv, rVal, lineCount);
