@@ -19,7 +19,7 @@ int main(int argc, char **argv, char **env)
 	write(STDOUT_FILENO, PROMPT, sizeof(PROMPT));
 	while (getline(&buffer, &size, stdin) != -1)
 	{
-		if (buffer[0] == 'q')
+		if (buffer[0] == EOF || checkexit(buffer) == 0)
 		{
 			free(buffer);
 			return (0);
