@@ -28,7 +28,7 @@ int main(int argc, char **argv, char **env)
 		rVal = runExec(token, env);
 		printf("return value: %i\n", rVal);
 
-		freeToken(token);
+		free(token);
 		token = NULL;
 		write(STDOUT_FILENO, PROMPT, sizeof(PROMPT));
 	}
