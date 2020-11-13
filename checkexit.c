@@ -11,7 +11,7 @@ int checkexit(char *command)
 	char *exit = "exit";
 	unsigned int i = 0;
 
-	while(command[i])
+	while (command[i])
 	{
 		if (command[i] != exit[i])
 			break;

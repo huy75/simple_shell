@@ -22,7 +22,7 @@ char **parseBuffer(char *buffer)
 
 	for (idx = 0; token; idx++)
 	{
-		printf("token: %s\n", token);
+		printf("token %i: %s\n", idx, token);
 		av[idx] = token;
 /*
 		if ((idx + 1) == modTks)
@@ -32,26 +32,4 @@ char **parseBuffer(char *buffer)
 	}
 	av[idx] = NULL;
 	return (av);
-}
-
-/**
- * freeToken - free
- * @token: input command
- * Return: void
- */
-void freeToken(char **token)
-{
-	unsigned int idx = 0;
-
-	if (token)
-	{
-		while (token[idx])
-		{
-			printf("idx: %i\n", idx);
-			free(token[idx]);
-			idx++;
-		}
-		free(token);
-
-	}
 }

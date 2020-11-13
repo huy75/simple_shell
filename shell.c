@@ -10,7 +10,7 @@
 int main(int argc, char **argv, char **env)
 {
 	char *buffer = NULL, **token = NULL;
-	int rVal;
+	int rVal, lineCount = 0;
 	size_t size = 0;
 
 	(void)argc;
@@ -22,12 +22,16 @@ int main(int argc, char **argv, char **env)
 		if (buffer[0] == EOF || checkexit(buffer) == 0)
 		{
 			free(buffer);
+			buffer = NULL;
 			return (0);
 		}
 		token = parseBuffer(buffer);
 		rVal = runExec(token, env);
+		lineCount++;
 		printf("return value: %i\n", rVal);
 
+		if (rVal)
+			printErr(token, rVal, lineCount);
 		free(token);
 		token = NULL;
 		write(STDOUT_FILENO, PROMPT, sizeof(PROMPT));

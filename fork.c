@@ -13,7 +13,6 @@ int runExec(char **token, char **env)
 	struct stat st;
 	char *command = path(token[0], env);
 
-	printf("token0: %s\n", token[0]);
 	if (stat(command, &st) == -1)
 	{
 		free(command);
@@ -29,7 +28,7 @@ int runExec(char **token, char **env)
 			free(command);
 			command = NULL;
 			perror("execve");
-			_exit(errno);
+			exit(errno);
 		}
 	}
 	else
@@ -48,12 +47,20 @@ int runExec(char **token, char **env)
 
 /**
  * printErr - prints error message
+ * @token: the command in full
  * @errVal: error value
  * @count: line count
  * Return: void
  */
-
-void printErr(int errVal, unsigned int count)
+void printErr(char **token, int errVal, unsigned int count)
 {
-
+	if (errVal)
+	{
+		_puts(token[0]);
+		_puts(": ");
+		print_number(count);
+		_puts(": ");
+		_puts(token[1]);
+		_puts(": not found\n");
+	}
 }

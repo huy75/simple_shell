@@ -15,10 +15,7 @@
 #include <sys/wait.h>
 #include <unistd.h>
 
-
-#define BUFSIZE 1024
 #define DELIMITERS " \t\r\n\v\f"
-#define ENV extern char **environ
 #define PROMPT "> "
 
 /**
@@ -34,16 +31,21 @@ typedef struct list_s
 
 /* fork.c module */
 int runExec(char **token, char **env);
+void printErr(char **token, int errVal, unsigned int count);
 
 /* parse.c */
 char **parseBuffer(char *buffer);
-void freeToken(char **token);
 
 /* path.c module */
-unsigned int _strlen(const char *s);
-char *str_concat(char *s1, char *s2);
 char *_getenv(const char *name, char **env);
 char *path(char *av0, char **env);
+
+/* strings.c module */
+int _putchar(char c);
+void _puts(char *str);
+unsigned int _strlen(const char *s);
+char *str_concat(char *s1, char *s2);
+void print_number(int n);
 
 /* _realloc.c module */
 char *_memcpy(char *dest, char *src, unsigned int n);
