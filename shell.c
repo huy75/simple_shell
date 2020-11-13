@@ -2,44 +2,36 @@
 
 /**
  * main - simple shell
- * Return: 0 or 98 if failed
+ * @argc: number of arguments
+ * @argv: arguments
+ * @env: the environ
+ * Return: 0 or -1 if failed
  */
-int main(void)
+int main(int argc, char **argv, char **env)
 {
-	char *av[1024], *buffer, *token;
-	char delimiters[] = " \t\r\n\v\f";
-	size_t size = BUFSIZE;
-	int status, idx;
-	pid_t pid;
+	char *buffer = NULL, **token = NULL;
+	int rVal;
+	size_t size = 0;
 
-	buffer = malloc(sizeof(char) * BUFSIZE);
-        if (!buffer)
-                perror("ERROR: Unable to allocate buffer\n"), exit(98);
+	(void)argc;
+	(void)argv;
 
-	while (1)
+	write(STDOUT_FILENO, PROMPT, sizeof(PROMPT));
+	while (getline(&buffer, &size, stdin) != -1)
 	{
+		if (buffer[0] == 'q')
+		{
+			free(buffer);
+			return (0);
+		}
+		token = parseBuffer(buffer);
+		rVal = runExec(token, env);
+		printf("return value: %i\n", rVal);
+
+		freeToken(token);
+		token = NULL;
 		write(STDOUT_FILENO, PROMPT, sizeof(PROMPT));
-		if (getline(&buffer, &size, stdin) == -1)
-			return (1);
-
-		token = strtok(buffer, delimiters);
-
-		for (idx = 0; token; idx++)
-		{
-			av[idx] = token;
-			token = strtok(NULL, delimiters);
-		}
-		av[idx] = NULL;
-
-		pid = fork();
-		if (pid == 0)
-		{
-			if (execve(av[0], av, NULL) == -1)
-				perror("sh");
-		}
-		else
-			wait(&status);
 	}
-	free(buffer);
-	return (0);
+
+	return (rVal);
 }
