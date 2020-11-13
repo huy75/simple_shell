@@ -45,9 +45,16 @@ char *str_concat(char *s1, char *s2)
 	return (ar);
 }
 
-char *_getenv(const char *name)
+/**
+ * _getenv - get environment variables
+ * @name: varible to find
+ * @env: the whole env
+ * Return: the content of the variable
+ */
+
+char *_getenv(const char *name, char **env)
 {
-	extern char **environ;
+	char **environ = env;
 	unsigned int size, a, j, i = 0;
 	char *result;
 
@@ -82,7 +89,14 @@ char *_getenv(const char *name)
 	return (result);
 }
 
-char *path(char *av0)
+/**
+ * path - get the correct path for exes
+ * @av0: initial command
+ * @env: the whole env
+ * Return: the proper path
+ */
+
+char *path(char *av0, char **env)
 {
 	struct stat st;
 	char *path;
@@ -91,10 +105,12 @@ char *path(char *av0)
 	char *command;
 
 	if (stat(av0, &st) == 0)
-		return (av0);
-
+	{
+		result = str_concat(av0, "");
+		return (result);
+	}
 	command = str_concat("/", av0);
-	path = _getenv("PATH");
+	path = _getenv("PATH", env);
 	token = strtok(path, delimiter);
 	while (token)
 	{
@@ -110,17 +126,4 @@ char *path(char *av0)
 	free(command);
 	free(path);
 	return (result);
-}
-
-int main(void)
-{
-	char *test1;
-	char *test2;
-
-	test1 = path("/bin/ls");
-	printf("Test1: %s\n", test1);
-	test2 = path("ls");
-	printf("Test2: %s\n", test2);
-	free(test2);
-	return (0);
 }
