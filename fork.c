@@ -15,8 +15,6 @@ int runExec(char **token, char **env)
 
 	if (stat(command, &st) == -1)
 	{
-/*		free(command);
- */
 		return (127);
 	}
 	pid = fork();
@@ -36,9 +34,7 @@ int runExec(char **token, char **env)
 		if (wait(&status) == -1)
 			perror("wait");
 		if (WIFEXITED(status))
-			status = WEXITSTATUS(status);
-		wait(&status);
-		rVal = status;
+			rVal = WEXITSTATUS(status);
 	}
 	free(command);
 	command = NULL;
