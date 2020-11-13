@@ -42,11 +42,14 @@ void freeToken(char **token);
 /* path.c module */
 unsigned int _strlen(const char *s);
 char *str_concat(char *s1, char *s2);
-char *_getenv(const char *name);
-char *path(char *av0);
+char *_getenv(const char *name, char **env);
+char *path(char *av0, char **env);
 
 /* _realloc.c module */
 char *_memcpy(char *dest, char *src, unsigned int n);
 void *_realloc(void *ptr, unsigned int old_size, unsigned int new_size);
+
+/* _exit.c module */
+int checkexit(char *command);
 
 #endif /* __SHELL__ */
