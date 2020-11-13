@@ -15,7 +15,6 @@ int runExec(char **token, char **env)
 
 	if (stat(command, &st) == -1)
 	{
-		printf("command not found\n");
 /*		free(command);
  */
 		return (127);

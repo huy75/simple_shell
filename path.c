@@ -76,7 +76,7 @@ char *path(char *av0, char **env)
 		token = strtok(NULL, delimiter);
 	}
 	if (token == NULL)
-		perror("./hsh");
+		return (NULL);
 
 	free(command);
 	free(path);
