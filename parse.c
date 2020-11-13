@@ -9,12 +9,12 @@ char **parseBuffer(char *buffer)
 {
 	char **av = NULL, *token = NULL;
 	unsigned int idx;
-	unsigned int modTks = 5;
+	unsigned int nbTks = TOKENBUF;
 
 	if (!buffer)
 		return (av);
 
-	av = malloc(sizeof(char *) * modTks);
+	av = malloc(sizeof(char *) * nbTks);
 	if (!av)
 		return (av);
 
@@ -23,10 +23,12 @@ char **parseBuffer(char *buffer)
 	for (idx = 0; token; idx++)
 	{
 		av[idx] = token;
-/*
-		if ((idx + 1) == modTks)
-			_realloc(av, sizeof(char) * modTks, sizeof(char) * (2 * modTks));
-*/
+
+		if ((idx + 1) == nbTks)
+		{
+			av = _realloc(av, sizeof(char) * nbTks, sizeof(char) * (nbTks + TOKENBUF));
+			nbTks += TOKENBUF;
+		}
 		token = strtok(NULL, DELIMITERS);
 	}
 	av[idx] = NULL;

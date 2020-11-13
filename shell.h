@@ -17,6 +17,7 @@
 
 #define DELIMITERS " \t\r\n\v\f"
 #define PROMPT "> "
+#define TOKENBUF 5
 
 /**
  * struct list_s - singly linked list
