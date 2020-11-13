@@ -15,8 +15,9 @@ int runExec(char **token, char **env)
 
 	if (stat(command, &st) == -1)
 	{
-		free(command);
-		command = NULL;
+		printf("command not found\n");
+/*		free(command);
+ */
 		return (127);
 	}
 	pid = fork();
@@ -48,19 +49,20 @@ int runExec(char **token, char **env)
 /**
  * printErr - prints error message
  * @token: the command in full
+ * @av: shell name
  * @errVal: error value
  * @count: line count
  * Return: void
  */
-void printErr(char **token, int errVal, unsigned int count)
+void printErr(char **token, char **av, int errVal, unsigned int count)
 {
-	if (errVal)
+	if (errVal == 127)
 	{
-		_puts(token[0]);
+		_puts(av[0]);
 		_puts(": ");
 		print_number(count);
 		_puts(": ");
-		_puts(token[1]);
+		_puts(token[0]);
 		_puts(": not found\n");
 	}
 }

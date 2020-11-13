@@ -14,7 +14,6 @@ int main(int argc, char **argv, char **env)
 	size_t size = 0;
 
 	(void)argc;
-	(void)argv;
 
 	write(STDOUT_FILENO, PROMPT, sizeof(PROMPT));
 	while (getline(&buffer, &size, stdin) != -1)
@@ -22,7 +21,6 @@ int main(int argc, char **argv, char **env)
 		if (buffer[0] == EOF || checkexit(buffer) == 0)
 		{
 			free(buffer);
-			buffer = NULL;
 			return (0);
 		}
 		token = parseBuffer(buffer);
@@ -31,7 +29,7 @@ int main(int argc, char **argv, char **env)
 		printf("return value: %i\n", rVal);
 
 		if (rVal)
-			printErr(token, rVal, lineCount);
+			printErr(token, argv, rVal, lineCount);
 		free(token);
 		token = NULL;
 		write(STDOUT_FILENO, PROMPT, sizeof(PROMPT));
