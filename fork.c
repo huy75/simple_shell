@@ -17,18 +17,43 @@ int runExec(char **token, char **env)
 	if (stat(command, &st) == -1)
 	{
 		free(command);
+		command = NULL;
 		return (127);
 	}
 	pid = fork();
 	if (pid == 0)
 	{
 		rVal = execve(command, token, env);
+		if (rVal == -1)
+		{
+			free(command);
+			command = NULL;
+			perror("execve");
+			_exit(errno);
+		}
 	}
 	else
 	{
+		if (wait(&status) == -1)
+			perror("wait");
+		if (WIFEXITED(status))
+			status = WEXITSTATUS(status);
 		wait(&status);
-		rVal = WEXITSTATUS(status);
+		rVal = status;
 	}
 	free(command);
+	command = NULL;
 	return (rVal);
+}
+
+/**
+ * printErr - prints error message
+ * @errVal: error value
+ * @count: line count
+ * Return: void
+ */
+
+void printErr(int errVal, unsigned int count)
+{
+
 }
