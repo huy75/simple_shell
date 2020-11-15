@@ -10,14 +10,16 @@ int runExec(char **token, char **env)
 {
 	int rVal, status;
 	pid_t pid;
-	struct stat st;
 	char *command = path(token[0], env);
 
-	if (stat(command, &st) == -1)
-	{
-		return (127);
-	}
 	pid = fork();
+	if (pid == -1)
+	{
+		free(command);
+		command = NULL;
+		perror("fork");
+		exit(errno);
+	}
 	if (pid == 0)
 	{
 		rVal = execve(command, token, env);
@@ -25,8 +27,7 @@ int runExec(char **token, char **env)
 		{
 			free(command);
 			command = NULL;
-			perror("execve");
-			exit(errno);
+			_exit(127);
 		}
 	}
 	else

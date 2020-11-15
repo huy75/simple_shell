@@ -25,8 +25,8 @@ int main(int argc, char **argv, char **env)
 		}
 		token = parseBuffer(buffer);
 		rVal = runExec(token, env);
-		lineCount++;
 
+		lineCount++;
 		if (rVal)
 			printErr(token, argv, rVal, lineCount);
 		free(token);
