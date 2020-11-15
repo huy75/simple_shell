@@ -75,10 +75,10 @@ char *path(char *av0, char **env)
 		free(result);
 		token = strtok(NULL, delimiter);
 	}
-	if (token == NULL)
-		return (NULL);
-
 	free(command);
 	free(path);
+
+	if (token == NULL)
+		return (NULL);
 	return (result);
 }
