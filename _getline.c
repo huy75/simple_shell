@@ -34,11 +34,21 @@ ssize_t _getline(char **lineptr, size_t *n, FILE *stream)
 	char buf[1024];
 	char *tmp;
 	unsigned int len;
+	int i = 0;
 
 	(void)stream;
 
 	read(STDIN_FILENO, buf, sizeof(buf));
 
+	while (buf[i])
+	{
+		if (buf[i] == '\n')
+		{
+			buf[i] = '\0';
+			break;
+		}
+		i++;
+	}
 	len = _strlen(buf);
 	tmp = realloc(*lineptr, 1024);
 	if (tmp == NULL)
