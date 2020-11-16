@@ -58,7 +58,7 @@ char *path(char *av0, char **env)
 	char *token, *result;
 	char *delimiter = ":\n";
 	char *command;
-	int i = 0;
+
 	if (stat(av0, &st) == 0)
 	{
 		result = str_concat(av0, "");
@@ -67,14 +67,12 @@ char *path(char *av0, char **env)
 	command = str_concat("/", av0);
 	path = _getenv("PATH", env);
 	token = strtok(path, delimiter);
-	while (i < 6)
+	while (token)
 	{
 		result = str_concat(token, command);
 		if (stat(result, &st) == 0)
 			break;
-		puts("error");
 		free(result);
-		i++;
 		token = strtok(NULL, delimiter);
 	}
 	free(command);
