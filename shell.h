@@ -55,4 +55,8 @@ void *_realloc(void *ptr, unsigned int old_size, unsigned int new_size);
 /* _exit.c module */
 int checkexit(char *command);
 
+/* _getline.c module */
+ssize_t _getline(char **lineptr, size_t *n, FILE *stream);
+char *_strcpy(char *dest, char *src)
+
 #endif /* __SHELL__ */
