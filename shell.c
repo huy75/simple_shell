@@ -16,7 +16,7 @@ int main(int argc, char **argv, char **env)
 	(void)argc;
 
 	write(STDOUT_FILENO, PROMPT, sizeof(PROMPT));
-	while (getline(&buffer, &size, stdin) != -1)
+	while (_getline(&buffer, &size, stdin) != -1)
 	{
 		if (buffer[0] == EOF || checkexit(buffer) == 0)
 		{
