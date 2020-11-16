@@ -12,6 +12,8 @@ int runExec(char **token, char **env)
 	pid_t pid;
 	char *command = path(token[0], env);
 
+	if (command == NULL)
+		return (127);
 	pid = fork();
 	if (pid == -1)
 	{
