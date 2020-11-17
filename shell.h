@@ -17,6 +17,7 @@
 
 #define DELIMITERS " \t\r\n\v\f"
 #define PROMPT "> "
+#define PRSIZE _strlen(PROMPT)
 #define TOKENBUF 5
 
 extern char **environ;
