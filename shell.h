@@ -19,6 +19,8 @@
 #define PROMPT "> "
 #define TOKENBUF 5
 
+extern char **environ;
+
 /**
  * struct list_s - singly linked list
  * @str: string - (malloc'ed string)
@@ -47,6 +49,9 @@ void _puts(char *str);
 unsigned int _strlen(const char *s);
 char *str_concat(char *s1, char *s2);
 void print_number(int n);
+
+/* strings2.c module */
+int _strcmp(char *s1, char *s2);
 
 /* _realloc.c module */
 char *_memcpy(char *dest, char *src, unsigned int n);

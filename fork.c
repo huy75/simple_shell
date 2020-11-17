@@ -24,8 +24,7 @@ int runExec(char **token, char **env)
 	}
 	if (pid == 0)
 	{
-		rVal = execve(command, token, env);
-		if (rVal == -1)
+		if (execve(command, token, env) == -1)
 		{
 			free(command);
 			command = NULL;

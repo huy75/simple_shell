@@ -16,21 +16,24 @@ int main(int argc, char **argv, char **env)
 	(void)argc;
 
 	write(STDOUT_FILENO, PROMPT, sizeof(PROMPT));
-	while (_getline(&buffer, &size, stdin) != -1)
+	while (getline(&buffer, &size, stdin) != -1)
 	{
-		if (buffer[0] == EOF || checkexit(buffer) == 0)
+		if (_strcmp(buffer, "\n") != 0)
 		{
-			free(buffer);
-			return (0);
-		}
-		token = parseBuffer(buffer);
-		rVal = runExec(token, env);
+			if (buffer[0] == EOF || checkexit(buffer) == 0)
+			{
+				free(buffer);
+				return (0);
+			}
+			token = parseBuffer(buffer);
+			rVal = runExec(token, env);
 
-		lineCount++;
-		if (rVal)
-			printErr(token, argv, rVal, lineCount);
-		free(token);
-		token = NULL;
+			lineCount++;
+			if (rVal)
+				printErr(token, argv, rVal, lineCount);
+			free(token);
+			token = NULL;
+		}
 		write(STDOUT_FILENO, PROMPT, sizeof(PROMPT));
 	}
 
