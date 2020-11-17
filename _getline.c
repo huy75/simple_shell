@@ -50,7 +50,7 @@ ssize_t _getline(char **lineptr, size_t *n, FILE *stream)
 		i++;
 	}
 	len = _strlen(buf);
-	tmp = _realloc(*lineptr, sizeof(lineptr),1024);
+	tmp = _realloc(*lineptr, sizeof(lineptr), 1024);
 	if (tmp == NULL)
 		return (-1);
 	*lineptr = tmp;
