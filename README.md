@@ -6,13 +6,13 @@ A school project with the aim of writing a simple UNIX command interpreter. The 
 
 ## How to use it?
 
-1) Download it:
+**1) Download it:**
 
 ```
 $ git clone https://github.com/huy75/simple_shell.git
 ```
 
-2) Run it:
+**2) Run it:**
 
 If you want to run it in your current environment:
 
@@ -27,13 +27,13 @@ $ sh
 $$ ./hsh
 ```
 
-3) Quit it:
+**3) Quit it:**
 
 Run `exit` or `ctrl + D`
 
 ## Examples
 
-List directory contents:
+**List directory contents:**
 
 ```
 $ ls
@@ -41,7 +41,7 @@ checkexit.c  _getline.c  hsh      path.c     _realloc.c  shell.h
 fork.c       hello       parse.c  README.md  shell.c     strings.c
 ```
 
-Create a new directory:
+**Create a new directory:**
 
 ```
 $ mkdir strtok
@@ -54,11 +54,11 @@ To check all available commands, run `ls /bin/` and to then `man COMMAND_NAME` t
 
 ## Learning objectives and limitations
 
-1) Objectives
+**1) Objectives**
 
 The goal is to understand how does a shell work, what is a pid and a ppid, how to manipulate the environment of the current process, what is the difference between a function and a system call, how to create processes, what are the three prototypes of `main`, how does the shell use the `PATH` to find the programs, how to execute another program with the `execve` system call, how to suspend the execution of a process until one of its children terminates, what is `EOF` / “end-of-file”?
 
-2) Limitations
+**2) Limitations**
 
 Functions allowed: `access`, `chdir`, `close`, `closedir`, `execve`, `exit`, `_exit`, `fflush`, `fork`, `free`, `getcwd`, `getline`, `isatty`, `kill`, `malloc`, `open`, `opendir`, `perror`, `read`, `readdir`, `signal`, `stat`, `lstat`, `fstat`, `strtok`, `wait`, `waitpid`, `wait3`, `wait4`, and `write`.
 
@@ -66,4 +66,4 @@ Functions allowed: `access`, `chdir`, `close`, `closedir`, `execve`, `exit`, `_e
 
 ## Authors
 
-[Huy Nguyen] (https://github.com/huy75) & [Yago Martinez-Falero Hein] (https://github.com/Yagomfh)
+[Huy Nguyen](https://github.com/huy75) & [Yago Martinez-Falero Hein](https://github.com/Yagomfh)
