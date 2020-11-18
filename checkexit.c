@@ -1,7 +1,7 @@
 #include "shell.h"
 
 /**
- * _exit - check if input = exit
+ * checkexit - check if input = exit
  * @command: the input
  * Return: -1 if false, 0 otherwise
  */
