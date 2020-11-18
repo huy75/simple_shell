@@ -36,7 +36,6 @@ typedef struct list_s
 /* fork.c module */
 int runExec(char **token, char **env);
 void printErr(char **token, char **argv, int errVal, unsigned int count);
-int runit (char *command, char **token, char **env, int lib);
 
 /* parse.c */
 char **parseBuffer(char *buffer);
