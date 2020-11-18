@@ -55,11 +55,11 @@ void printErr(char **token, char **av, int errVal, unsigned int count)
 {
 	if (errVal == 127)
 	{
-		_puts(av[0]);
-		_puts(": ");
+		_puts(av[0], 2);
+		_puts(": ", 2);
 		print_number(count);
-		_puts(": ");
-		_puts(token[0]);
-		_puts(": not found\n");
+		_puts(": ", 2);
+		_puts(token[0], 2);
+		_puts(": not found\n", 2);
 	}
 }

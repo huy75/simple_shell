@@ -45,8 +45,8 @@ char *_getenv(const char *name, char **env);
 char *path(char *av0, char **env);
 
 /* strings.c module */
-int _putchar(char c);
-void _puts(char *str);
+int _putchar(char c, int fd);
+void _puts(char *str, int fd);
 unsigned int _strlen(const char *s);
 char *str_concat(char *s1, char *s2);
 void print_number(int n);

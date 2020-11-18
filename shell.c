@@ -18,7 +18,7 @@ int main(int argc, char **argv, char **env)
 	while (1)
 	{
 		if (isatty(STDIN_FILENO) == 1)
-			_puts(PROMPT);
+			_puts(PROMPT, 1);
 		if (getline(&buffer, &size, stdin) != -1)
 		{
 			if (_strcmp(buffer, "\n") != 0)

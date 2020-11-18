@@ -59,7 +59,7 @@ char *path(char *av0, char **env)
 	char *delimiter = ":\n";
 	char *command;
 
-	if (stat(av0, &st) == 0)
+	if (av0[0] == '/')
 	{
 		result = str_concat(av0, "");
 		return (result);

@@ -3,24 +3,26 @@
 /**
  * _putchar - writes the character c to stdout
  * @c: The character to print
+ * @fd: file descriptor
  * Return: On success 1.
  * On error, -1 is returned, and errno is set appropriately.
  */
-int _putchar(char c)
+int _putchar(char c, int fd)
 {
-	return (write(1, &c, 1));
+	return (write(fd, &c, 1));
 }
 
 /**
  *_puts - prints a string, followed by a new line, to stdout.
  * @str: the input string
+ * @fd: file descriptor
  * Return: nothing to return.
  */
-void _puts(char *str)
+void _puts(char *str, int fd)
 {
 	while (*str != 0)
 	{
-		_putchar(*str);
+		_putchar(*str, fd);
 		str++;
 	}
 }
@@ -88,13 +90,13 @@ void print_number(int n)
 		nb = n / p;
 		if (nb < 0)
 		{
-			_putchar('-');
-			_putchar('0' - nb);
+			_putchar('-', 2);
+			_putchar('0' - nb, 2);
 			n = -(n - nb * p);
 		}
 		else
 		{
-			_putchar('0' + nb);
+			_putchar('0' + nb, 2);
 			n = n - nb * p;
 		}
 		p /= 10;
