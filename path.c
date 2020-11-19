@@ -45,6 +45,34 @@ char *_getenv(const char *name, char **env)
 }
 
 /**
+ * scan_path_vars - checks whether path contains a "::"
+ * before /bin/ or a ":" at path[0]
+ * @path: the entire path
+ * Return: 1 if any is true or 0 otherwise
+ */
+
+int scan_path_vars(char *path)
+{
+	char *binloc, *emptyloc;
+	int lenB, lenE;
+
+	if (path[0] == ':')
+		return (1);
+	if (path[0] == '/' && path[1] == 'b')
+		return (0);
+	binloc = _strstr(path, ":/bin");
+	emptyloc = _strstr(path, "::");
+	if (binloc != NULL && emptyloc != NULL)
+	{
+		lenB = _strlen(binloc);
+		lenE = _strlen(emptyloc);
+		if (lenE > lenB)
+			return (1);
+	}
+	return (0);
+}
+
+/**
  * path - get the correct path for exes
  * @av0: initial command
  * @env: the whole env
@@ -58,14 +86,17 @@ char *path(char *av0, char **env)
 	char *token, *result;
 	char *delimiter = ":\n";
 	char *command;
+	int compare = _strcmp("/bin/", av0);
 
-	if (av0[0] == '/')
+	if (compare == 0)
 	{
 		result = str_concat(av0, "");
 		return (result);
 	}
 	command = str_concat("/", av0);
 	path = _getenv("PATH", env);
+	if (scan_path_vars(path) == 1 && stat(av0, &st) == 0)
+		return (str_concat(av0, ""));
 	token = strtok(path, delimiter);
 	while (token)
 	{
