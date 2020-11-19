@@ -10,7 +10,7 @@
 int main(int argc, char **argv, char **env)
 {
 	arguments_t arguments;
-	int rVal, lineCount = 0;
+	int rVal;
 	size_t size = 0;
 
 	initStruct(&arguments);
@@ -68,5 +68,6 @@ void initStruct(arguments_t *args)
 		args->argv = NULL;
 		args->argc = 0;
 		args->lCnt = 0;
+		args->exitS = 0;
 	}
 }

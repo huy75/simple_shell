@@ -40,6 +40,7 @@ typedef struct list_s
  * @argc: argument count
  * @argv:argv
  * @lCnt: line count
+ * @exitS: exit status
  */
 typedef struct arguments
 {
@@ -48,6 +49,7 @@ typedef struct arguments
 	int argc;
 	char *argv;
 	int lCnt;
+	int exitS;
 } arguments_t;
 
 /**
