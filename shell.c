@@ -70,6 +70,5 @@ void initStruct(arguments_t *args)
 		args->arr = NULL;
 		args->argv = NULL;
 		args->ac = 0;
-		args->exit_status = 0;
 	}
 }
