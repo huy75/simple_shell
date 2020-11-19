@@ -11,12 +11,12 @@ int builtins(arguments_t *args)
 	builtins_t bDict[] = {
 		{"env", _bEnv },
 		{"exit",_bExit},
-		{NULL, NULL},
+		{NULL, NULL}
 	};
 
 	while (bDict[idx].cmd)
 	{
-		if (!_strcmp(args->arr[0], bDict[idx].cmd))
+		if (!_strcmp(args->toks[0], bDict[idx].cmd))
 		{
 			return (bDict[idx].bfc(args));
 		}
@@ -51,7 +51,6 @@ int _bEnv(arguments_t *args)
 
 int _bExit(arguments_t *args)
 {
-	(void)args;
-
+	free(args->buf);
 	exit(EXIT_SUCCESS);
 }

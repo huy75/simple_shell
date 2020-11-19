@@ -10,50 +10,47 @@
 int main(int argc, char **argv, char **env)
 {
 	arguments_t arguments;
-	char *buffer = NULL, **token = NULL;
 	int rVal, lineCount = 0;
 	size_t size = 0;
 
 	initStruct(&arguments);
-	arguments.ac = argc;
+	arguments.argc = argc;
         arguments.argv = argv[0];
 
 	while (1)
 	{
 		if (isatty(STDIN_FILENO) == 1)
 			_puts(PROMPT, 1);
-		if (getline(&buffer, &size, stdin) != -1)
+		if (getline(&(arguments.buf), &size, stdin) != -1)
 		{
-			if (_strcmp(buffer, "\n") != 0)
+			if (_strcmp(arguments.buf, "\n") != 0)
 			{
-				if (buffer[0] == EOF || checkexit(buffer) == 0)
+				if (arguments.buf[0] == EOF)
 				{
-					free(buffer);
+					free(arguments.buf);
 					return (0);
 				}
-				token = parseBuffer(buffer);
-				arguments.arr = token;
+				arguments.toks = parseBuffer(arguments.buf);
 				rVal = builtins(&arguments);
 				if (rVal)
 				{
-					rVal = runExec(token, env);
+					rVal = runExec(arguments.toks, env);
 
-					lineCount++;
+					arguments.lCnt++;
 					if (rVal)
-						printErr(token, argv, rVal, lineCount);
+						printErr(&arguments);
 				}
-				free(token);
-				token = NULL;
+				free(arguments.toks);
+				arguments.toks = NULL;
 			}
 		}
 		else
 		{
-			free(buffer);
-			buffer = NULL;
+			free(arguments.buf);
+			arguments.buf = NULL;
 			break;
 		}
 	}
-
 	return (rVal);
 }
 
@@ -67,8 +64,9 @@ void initStruct(arguments_t *args)
 	if (args)
 	{
 		args->buf = NULL;
-		args->arr = NULL;
+		args->toks = NULL;
 		args->argv = NULL;
-		args->ac = 0;
+		args->argc = 0;
+		args->lCnt = 0;
 	}
 }

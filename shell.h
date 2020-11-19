@@ -35,17 +35,19 @@ typedef struct list_s
 
 /**
  * struct arguments - for various functions
- * @buf: str
- * @arr: Array of strings
- * @argv: Name of the executable
- * @ac: argument count
+ * @buf: input command
+ * @toks: array of strings
+ * @argc: argument count
+ * @argv:argv
+ * @lCnt: line count
  */
 typedef struct arguments
 {
 	char *buf;
-	char **arr;
+	char **toks;
+	int argc;
 	char *argv;
-	int ac;
+	int lCnt;
 } arguments_t;
 
 /**
@@ -65,7 +67,7 @@ void initStruct(arguments_t *arguments);
 
 /* fork.c module */
 int runExec(char **token, char **env);
-void printErr(char **token, char **argv, int errVal, unsigned int count);
+void printErr(arguments_t *argumentsargv);
 
 /* parse.c */
 char **parseBuffer(char *buffer);

@@ -45,21 +45,15 @@ int runExec(char **token, char **env)
 
 /**
  * printErr - prints error message
- * @token: the command in full
- * @av: shell name
- * @errVal: error value
- * @count: line count
+ * @args: args
  * Return: void
  */
-void printErr(char **token, char **av, int errVal, unsigned int count)
+void printErr(arguments_t *args)
 {
-	if (errVal == 127)
-	{
-		_puts(av[0], 2);
-		_puts(": ", 2);
-		print_number(count);
-		_puts(": ", 2);
-		_puts(token[0], 2);
-		_puts(": not found\n", 2);
-	}
+	_puts(args->argv, 2);
+       	_puts(": ", 2);
+       	print_number(args->lCnt);
+       	_puts(": ", 2);
+       	_puts(args->toks[0], 2);
+       	_puts(": not found\n", 2);
 }
