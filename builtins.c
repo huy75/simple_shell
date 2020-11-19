@@ -32,13 +32,13 @@ int builtins(arguments_t *args)
  */
 int _bEnv(arguments_t *args)
 {
-	(void)args;
+	list_t *head = args->head;
 
-	while (*environ)
+	while (head)
 	{
-		_puts(*environ, 1);
-		_putchar('\n', 1);
-		environ++;
+		_puts(head->str, 1);
+		_puts("\n", 1);
+		head = head->next;
 	}
 	return (EXIT_SUCCESS);
 }
