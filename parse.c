@@ -23,7 +23,6 @@ char **parseBuffer(char *buffer)
 	for (idx = 0; token; idx++)
 	{
 		av[idx] = token;
-
 		if ((idx + 1) == nbTks)
 		{
 			av = _realloc(av, sizeof(char) * nbTks, sizeof(char) * (nbTks + TOKENBUF));

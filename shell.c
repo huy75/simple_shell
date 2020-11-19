@@ -9,11 +9,14 @@
  */
 int main(int argc, char **argv, char **env)
 {
+	arguments_t arguments;
 	char *buffer = NULL, **token = NULL;
 	int rVal, lineCount = 0;
 	size_t size = 0;
 
-	(void)argc;
+	initStruct(&arguments);
+	arguments.ac = argc;
+        arguments.argv = argv[0];
 
 	while (1)
 	{
@@ -29,11 +32,17 @@ int main(int argc, char **argv, char **env)
 					return (0);
 				}
 				token = parseBuffer(buffer);
-				rVal = runExec(token, env);
-
-				lineCount++;
+				arguments.arr = token;
+				rVal = builtins(&arguments);
+				printf("rVal: %i\n", rVal);
 				if (rVal)
-					printErr(token, argv, rVal, lineCount);
+				{
+					rVal = runExec(token, env);
+
+					lineCount++;
+					if (rVal)
+						printErr(token, argv, rVal, lineCount);
+				}
 				free(token);
 				token = NULL;
 			}
@@ -47,4 +56,21 @@ int main(int argc, char **argv, char **env)
 	}
 
 	return (rVal);
+}
+
+/**
+ * initStruct - initialize the argument structure
+ * @args: args
+ */
+void initStruct(arguments_t *args)
+{
+
+	if (args)
+	{
+		args->buf = NULL;
+		args->arr = NULL;
+		args->argv = NULL;
+		args->ac = 0;
+		args->exit_status = 0;
+	}
 }
