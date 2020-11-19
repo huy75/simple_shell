@@ -70,6 +70,7 @@ void initStruct(arguments_t *args)
 		args->argc = 0;
 		args->lCnt = 0;
 		args->head = cpyEnv();
+		args->index = 0;
 		args->exitS = 0;
 	}
 }

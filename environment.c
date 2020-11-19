@@ -53,3 +53,94 @@ list_t *add_node_end(list_t **head, const char *str)
 		*head = newTail;
 	return (newTail);
 }
+
+/**
+ * _getenvLL - gets an env variable from a name
+ * @name: char * to search for
+ * @args: args
+ * Return: char * containing nodes value, NULL if not found
+ */
+list_t *_getenvLL(char *name, arguments_t *args)
+{
+	list_t *head = args->head;
+
+	while (head)
+	{
+		if (!_strcmp(name, head->str))
+		{
+			return (head);
+		}
+		head = head->next;
+	}
+	return (NULL);
+}
+
+/**
+ * delete_nodeint_at_index - deletes the node at index of the linked list.
+ * @head: points to the head of the list
+ * @index: the index of the node to delete
+ * Return: 1 if it succeeded, -1 if it failed
+ */
+int delete_node_at_index(list_t **head, unsigned int index)
+{
+	unsigned int idx = 0;
+	list_t *node;
+	list_t *ptr = *head;
+
+	if (!head || !*head)
+		return (-1);
+	if (!index)
+	{
+		node = *head;
+		*head = (*head)->next;
+		free(node);
+		return (1);
+	}
+
+	while (ptr)
+	{
+		if (idx == index)
+		{
+			node->next = ptr->next;
+			free(ptr);
+			return (1);
+		}
+		node = ptr;
+		ptr = ptr->next;
+		idx++;
+	}
+	return (-1);
+}
+
+
+/**
+ * free_listint_safe - frees a list
+ * @h: the pointer to the list to free
+ * Return: the size of free'd list
+ */
+size_t free_listint_safe(list_t **h)
+{
+	size_t nodes = 0;
+	list_t *temp = NULL;
+
+	if (!(h && *h))
+		return (nodes);
+
+	while (*h)
+	{
+		nodes++;
+		if (*h > (*h)->next)
+		{
+			temp = *h;
+			*h = (*h)->next;
+			free(temp);
+		}
+		else
+		{
+			free(*h);
+			*h = NULL;
+		}
+	}
+	*h = NULL;
+	return (nodes);
+}

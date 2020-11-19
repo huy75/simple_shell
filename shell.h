@@ -41,6 +41,7 @@ typedef struct list_s
  * @argv: argv
  * @lCnt: line count
  * @head: first node
+ * @index: to delete node
  * @exitS: exit status
  */
 typedef struct arguments
@@ -49,8 +50,10 @@ typedef struct arguments
 	char **toks;
 	int argc;
 	char *argv;
+	list_t *env;
 	int lCnt;
 	list_t *head;
+	int index;
 	int exitS;
 } arguments_t;
 
@@ -91,6 +94,7 @@ void print_number(int n);
 
 /* strings2.c module */
 int _strcmp(char *s1, char *s2);
+int _strncmp(const char *s1, const char *s2, size_t n);
 char *_strstr(char *haystack, char *needle);
 
 /* _realloc.c module */
@@ -101,10 +105,15 @@ void *_realloc(void *ptr, unsigned int old_size, unsigned int new_size);
 int builtins(arguments_t *args);
 int _bEnv(arguments_t *args);
 int _bExit(arguments_t *args);
+int _bSEnv(arguments_t *args);
+int _bUEnv(arguments_t *args);
 
 /* environment.c module */
 list_t *cpyEnv(void);
 list_t *add_node_end(list_t **head, const char *str);
+list_t *_getenvLL(char *name, arguments_t *args);
+int delete_node_at_index(list_t **head, unsigned int index);
+size_t free_listint_safe(list_t **h);
 
 /* _getline.c module */
 char *_strcpy(char *dest, char *src);
