@@ -21,6 +21,7 @@ int main(int argc, char **argv, char **env)
 	{
 		if (isatty(STDIN_FILENO) == 1)
 			_puts(PROMPT, 1);
+		signal(SIGINT, sigintH);
 		if (getline(&(arguments.buf), &size, stdin) != -1)
 		{
 			if (_strcmp(arguments.buf, "\n") != 0)
@@ -69,5 +70,18 @@ void initStruct(arguments_t *args)
 		args->argc = 0;
 		args->lCnt = 0;
 		args->exitS = 0;
+	}
+}
+
+/**
+ * sigintH - handles SIGINT (CTRL-C)
+ * @signum: signal number caught by signal, 2 for SIGINT
+ **/
+void sigintH(int signum)
+{
+	if (signum == 2)
+	{
+		_putchar('\n', 1);
+		_puts(PROMPT, 1);
 	}
 }

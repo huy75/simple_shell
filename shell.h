@@ -66,6 +66,7 @@ typedef struct builtins_s
 /* shell.c module */
 int main(int argc, char **argv, char **env);
 void initStruct(arguments_t *arguments);
+void sigintH(int signum);
 
 /* fork.c module */
 int runExec(char **token, char **env);
