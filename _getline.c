@@ -31,31 +31,29 @@ char *_strcpy(char *dest, char *src)
 
 ssize_t _getline(char **lineptr, size_t *n, FILE *stream)
 {
-	char buf[1024];
-	char *tmp;
-	unsigned int len;
-	int i = 0;
+	char tmp;
+	int i = 0, re, size = 1;
 
 	(void)stream;
 
-	read(STDIN_FILENO, buf, sizeof(buf));
-
-	while (buf[i])
+	*lineptr = malloc(sizeof(char) * 1);
+	while ((re = read(STDIN_FILENO, &tmp, 1)) > 0)
 	{
-		if (buf[i] == '\n')
+		if (tmp == '\n')
+			*(*lineptr + i) = '\0';
+		else
+			*(*lineptr + i) = tmp;
+		if (*(*lineptr + i) == '\0')
 		{
-			buf[i] = '\0';
-			break;
+			*n = i;
+			return (size);
 		}
 		i++;
+		if (i >= size)
+		{
+			*lineptr = _realloc(*lineptr, size, size + 1);
+			size++;
+		}
 	}
-	len = _strlen(buf);
-	tmp = _realloc(*lineptr, sizeof(lineptr), 1024);
-	if (tmp == NULL)
-		return (-1);
-	*lineptr = tmp;
-	*n = 1024;
-
-	_strcpy(*lineptr, buf);
-	return (len);
+	return (-1);
 }

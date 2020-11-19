@@ -22,7 +22,7 @@ int main(int argc, char **argv, char **env)
 		if (isatty(STDIN_FILENO) == 1)
 			_puts(PROMPT, 1);
 		signal(SIGINT, sigintH);
-		if (getline(&(arguments.buf), &size, stdin) != -1)
+		if (_getline(&(arguments.buf), &size, stdin) != -1)
 		{
 			if (_strcmp(arguments.buf, "\n") != 0)
 			{
