@@ -34,7 +34,6 @@ int main(int argc, char **argv, char **env)
 				token = parseBuffer(buffer);
 				arguments.arr = token;
 				rVal = builtins(&arguments);
-				printf("rVal: %i\n", rVal);
 				if (rVal)
 				{
 					rVal = runExec(token, env);

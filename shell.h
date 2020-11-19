@@ -34,13 +34,11 @@ typedef struct list_s
 } list_t;
 
 /**
- * struct arguments - various functions
+ * struct arguments - for various functions
+ * @buf: str
  * @arr: Array of strings
- * @status: Exit status
- * @head: Pointer to first node
  * @argv: Name of the executable
  * @ac: argument count
- * @exit_status: Exit status of the previous cmd
  */
 typedef struct arguments
 {
@@ -48,7 +46,6 @@ typedef struct arguments
 	char **arr;
 	char *argv;
 	int ac;
-	int exit_status;
 } arguments_t;
 
 /**
@@ -87,7 +84,6 @@ void print_number(int n);
 
 /* strings2.c module */
 int _strcmp(char *s1, char *s2);
-int _strncmp(char *s1, char *s2, unsigned int n);
 char *_strstr(char *haystack, char *needle);
 
 /* _realloc.c module */
