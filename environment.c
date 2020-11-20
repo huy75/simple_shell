@@ -4,14 +4,14 @@
  * cpyEnv - copies env to linked list
  * Return: Pointer to first node
  */
-list_t *cpyEnv(void)
+list_t *cpyEnv(arguments_t *args)
 {
         int idx = 0;
         list_t *head = NULL;
 
-        while (environ[idx])
+        while (args->env[idx])
         {
-                add_node_end(&head, environ[idx]);
+                add_node_end(&head, args->env[idx]);
                 idx++;
         }
         return (head);
@@ -112,35 +112,24 @@ int delete_node_at_index(list_t **head, unsigned int index)
 	return (-1);
 }
 
-
 /**
- * free_listint_safe - frees a list
- * @h: the pointer to the list to free
- * Return: the size of free'd list
+ * free_listint2 - frees all nodes of a list
+ * @head: point the head of list
+ * Return: void
  */
-size_t free_listint_safe(list_t **h)
+void free_list2(list_t **head)
 {
-	size_t nodes = 0;
-	list_t *temp = NULL;
+	list_t *next, *ptr;
 
-	if (!(h && *h))
-		return (nodes);
+	if (!head)
+		return;
 
-	while (*h)
+	next = *head;
+	while (next)
 	{
-		nodes++;
-		if (*h > (*h)->next)
-		{
-			temp = *h;
-			*h = (*h)->next;
-			free(temp);
-		}
-		else
-		{
-			free(*h);
-			*h = NULL;
-		}
+		ptr = next;
+		next = next->next;
+		free(ptr);
 	}
-	*h = NULL;
-	return (nodes);
+	*head = NULL;
 }

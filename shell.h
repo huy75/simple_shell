@@ -20,8 +20,6 @@
 #define PRSIZE _strlen(PROMPT)
 #define TOKENBUF 5
 
-extern char **environ;
-
 /**
  * struct list_s - singly linked list
  * @str: string - (malloc'ed string)
@@ -39,6 +37,7 @@ typedef struct list_s
  * @toks: array of strings
  * @argc: argument count
  * @argv: argv
+ * @env: env
  * @lCnt: line count
  * @head: first node
  * @index: to delete node
@@ -50,7 +49,7 @@ typedef struct arguments
 	char **toks;
 	int argc;
 	char *argv;
-	list_t *env;
+	char **env;
 	int lCnt;
 	list_t *head;
 	int index;
@@ -70,14 +69,14 @@ typedef struct builtins_s
 
 /* shell.c module */
 int main(int argc, char **argv, char **env);
-void initStruct(arguments_t *arguments);
+void initStruct(arguments_t *arguments, char **env);
 void sigintH(int signum);
 
 /* fork.c module */
 int runExec(char **token, char **env);
 void printErr(arguments_t *argumentsargv);
 
-/* parse.c */
+/* parse.c module */
 char **parseBuffer(char *buffer);
 
 /* path.c module */
@@ -109,11 +108,11 @@ int _bSEnv(arguments_t *args);
 int _bUEnv(arguments_t *args);
 
 /* environment.c module */
-list_t *cpyEnv(void);
+list_t *cpyEnv(arguments_t *args);
 list_t *add_node_end(list_t **head, const char *str);
 list_t *_getenvLL(char *name, arguments_t *args);
 int delete_node_at_index(list_t **head, unsigned int index);
-size_t free_listint_safe(list_t **h);
+void free_list2(list_t **head);
 
 /* _getline.c module */
 char *_strcpy(char *dest, char *src);

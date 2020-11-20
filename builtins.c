@@ -54,7 +54,7 @@ int _bEnv(arguments_t *args)
 int _bExit(arguments_t *args)
 {
 	free(args->buf);
-	free_listint_safe(&(args->head));
+	free_list2(&(args->head));
 	exit(EXIT_SUCCESS);
 }
 

@@ -13,7 +13,7 @@ int main(int argc, char **argv, char **env)
 	int rVal;
 	size_t size = 0;
 
-	initStruct(&arguments);
+	initStruct(&arguments, env);
 	arguments.argc = argc;
         arguments.argv = argv[0];
 
@@ -59,7 +59,7 @@ int main(int argc, char **argv, char **env)
  * initStruct - initialize the argument structure
  * @args: args
  */
-void initStruct(arguments_t *args)
+void initStruct(arguments_t *args, char **env)
 {
 
 	if (args)
@@ -68,8 +68,9 @@ void initStruct(arguments_t *args)
 		args->toks = NULL;
 		args->argv = NULL;
 		args->argc = 0;
+		args->env = env;
 		args->lCnt = 0;
-		args->head = cpyEnv();
+		args->head = cpyEnv(args);
 		args->index = 0;
 		args->exitS = 0;
 	}
