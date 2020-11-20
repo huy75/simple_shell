@@ -38,7 +38,10 @@ int main(int argc, char **argv, char **env)
 		if (builtins(&arguments)) /* not a built-in function */
 		{
 			if (runExec(arguments.toks, env)) /* exec in PATH */
+			{
+				errno = ENOENT;
 				printErr(&arguments);
+			}
 			free(arguments.toks);
 			arguments.toks = NULL;
 		}

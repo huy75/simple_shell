@@ -53,9 +53,21 @@ int _bEnv(arguments_t *args)
 
 int _bExit(arguments_t *args)
 {
+	int exitN;
+
+	if (args->toks[1])
+	{
+		exitN = _atoi(args->toks[1]);
+		if (!exitN)
+		{
+			errno = EINVAL;
+			printErr(args);
+			return (0);
+		}
+	}
 	free(args->buf);
 	free_list2(&(args->head));
-	exit(EXIT_SUCCESS);
+	exit(exitN);
 }
 
 /**

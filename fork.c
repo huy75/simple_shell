@@ -4,16 +4,17 @@
  * runExec - run the executable
  * @token: the command in full
  * @env: environ
- * Return: return value 127 if file not found, or from system call / macro
+ * Return: return 0 if success
  */
 int runExec(char **token, char **env)
 {
-	int rVal, status;
+	int status;
 	pid_t pid;
 	char *command = path(token[0], env);
 
 	if (command == NULL)
-		return (127);
+		return (EXIT_FAILURE);
+
 	pid = fork();
 	if (pid == -1)
 	{
@@ -28,19 +29,19 @@ int runExec(char **token, char **env)
 		{
 			free(command);
 			command = NULL;
-			_exit(127);
+			_exit(0);
 		}
 	}
 	else
 	{
 		if (wait(&status) == -1)
 			perror("wait");
-		if (WIFEXITED(status))
-			rVal = WEXITSTATUS(status);
+/*		if (WIFEXITED(status))
+		rVal = WEXITSTATUS(status); */
 	}
 	free(command);
 	command = NULL;
-	return (rVal);
+	return (0);
 }
 
 /**
@@ -54,6 +55,20 @@ void printErr(arguments_t *args)
 	_puts(": ", STDERR_FILENO);
 	print_number(args->lCnt);
 	_puts(": ", STDERR_FILENO);
-	_puts(args->toks[0], STDERR_FILENO);
-	_puts(": not found\n", STDERR_FILENO);
+
+	switch (errno)
+	{
+	case ENOENT:
+		_puts(args->toks[0], STDERR_FILENO);
+		_puts(": not found\n", STDERR_FILENO);
+		args->exitS = 127;
+		break;
+	case EINVAL:
+		_puts(args->toks[0], STDERR_FILENO);
+		_puts(": Illegal number: ", STDERR_FILENO);
+		_puts(args->toks[1], STDERR_FILENO);
+		_puts("\n", STDERR_FILENO);
+		args->exitS = 128;
+		break;
+	}
 }

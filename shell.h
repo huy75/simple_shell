@@ -95,6 +95,7 @@ void print_number(int n);
 int _strcmp(char *s1, char *s2);
 int _strncmp(const char *s1, const char *s2, size_t n);
 char *_strstr(char *haystack, char *needle);
+int _atoi(char *s);
 
 /* _realloc.c module */
 char *_memcpy(char *dest, char *src, unsigned int n);
