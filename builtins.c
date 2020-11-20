@@ -64,12 +64,10 @@ int _bExit(arguments_t *args)
 			printErr(args);
 			return (0);
 		}
-		free(args->buf);
-		free_list2(&(args->head));
+		freeAll(args);
 		exit(exitN);
 	}
-	free(args->buf);
-	free_list2(&(args->head));
+	freeAll(args);
 	exit(args->exitS);
 }
 

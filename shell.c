@@ -12,9 +12,7 @@ int main(int argc, char **argv, char **env)
 	arguments_t arguments;
 	size_t size = 0;
 
-	initStruct(&arguments, env);
-	arguments.argc = argc;
-	arguments.argv = argv[0];
+	initStruct(&arguments, argc, argv, env);
 	while (1)
 	{
 		if (isatty(STDIN_FILENO) == 1) /* if terminal */
@@ -31,7 +29,8 @@ int main(int argc, char **argv, char **env)
 		if (arguments.buf[0] == EOF) /* Ctrl + D */
 		{
 			free(arguments.buf);
-			return (EXIT_SUCCESS);
+			arguments.buf = NULL;
+			break;
 		}
 		arguments.lCnt++;
 		arguments.toks = parseBuffer(arguments.buf);
@@ -42,27 +41,32 @@ int main(int argc, char **argv, char **env)
 				errno = ENOENT;
 				printErr(&arguments);
 			}
-			free(arguments.toks);
-			arguments.toks = NULL;
 		}
+		free(arguments.buf);
+		arguments.buf = NULL;
+		free(arguments.toks);
+		arguments.toks = NULL;
 	}
+	freeAll(&arguments);
 	return (0);
 }
 
 /**
  * initStruct - initialize the argument structure
  * @args: the arguments
+ * @argc: number of arguments
+ * @argv: the command line
  * @env: the environ
  */
-void initStruct(arguments_t *args, char **env)
+void initStruct(arguments_t *args, int argc, char **argv, char **env)
 {
 
 	if (args)
 	{
 		args->buf = NULL;
 		args->toks = NULL;
-		args->argv = NULL;
-		args->argc = 0;
+		args->argc = argc;
+		args->argv = argv[0];
 		args->env = env;
 		args->lCnt = 0;
 		args->head = cpyEnv(args);
@@ -83,4 +87,18 @@ void sigintH(int signum)
 		_putchar('\n', STDOUT_FILENO);
 		_puts(PROMPT, STDOUT_FILENO);
 	}
+}
+
+/**
+ * freeAll - free all malloc'ed
+ * @args: the structure arguments
+ * Return: void
+ */
+void freeAll(arguments_t *args)
+{
+	if (args->toks)
+		free(*args->toks);
+	free(args->toks);
+	args->toks = NULL;
+	free_list2(&(args->head));
 }

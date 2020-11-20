@@ -130,6 +130,7 @@ void free_list2(list_t **head)
 	{
 		ptr = next;
 		next = next->next;
+		free(ptr->str);
 		free(ptr);
 	}
 	*head = NULL;
