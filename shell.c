@@ -5,59 +5,51 @@
  * @argc: number of arguments
  * @argv: arguments
  * @env: the environ
- * Return: 0 or -1 if failed
+ * Return: 0
  */
 int main(int argc, char **argv, char **env)
 {
 	arguments_t arguments;
-	int rVal;
 	size_t size = 0;
 
 	initStruct(&arguments, env);
 	arguments.argc = argc;
-        arguments.argv = argv[0];
-
+	arguments.argv = argv[0];
 	while (1)
 	{
-		if (isatty(STDIN_FILENO) == 1)
-			_puts(PROMPT, 1);
-		signal(SIGINT, sigintH);
-		if (_getline(&(arguments.buf), &size, stdin) != -1)
-		{
-			if (_strcmp(arguments.buf, "\n") != 0)
-			{
-				if (arguments.buf[0] == EOF)
-				{
-					free(arguments.buf);
-					return (0);
-				}
-				arguments.toks = parseBuffer(arguments.buf);
-				rVal = builtins(&arguments);
-				if (rVal)
-				{
-					rVal = runExec(arguments.toks, env);
-
-					arguments.lCnt++;
-					if (rVal)
-						printErr(&arguments);
-				}
-				free(arguments.toks);
-				arguments.toks = NULL;
-			}
-		}
-		else
+		if (isatty(STDIN_FILENO) == 1) /* if terminal */
+			_puts(PROMPT, STDOUT_FILENO);
+		signal(SIGINT, sigintH); /* ignore Ctrl + C */
+		if (_getline(&(arguments.buf), &size, stdin) == -1)
 		{
 			free(arguments.buf);
 			arguments.buf = NULL;
 			break;
 		}
+		if (!_strcmp(arguments.buf, "\n")) /* empty command line */
+			continue;
+		if (arguments.buf[0] == EOF) /* Ctrl + D */
+		{
+			free(arguments.buf);
+			return (EXIT_SUCCESS);
+		}
+		arguments.lCnt++;
+		arguments.toks = parseBuffer(arguments.buf);
+		if (builtins(&arguments)) /* not a built-in function */
+		{
+			if (runExec(arguments.toks, env)) /* exec in PATH */
+				printErr(&arguments);
+			free(arguments.toks);
+			arguments.toks = NULL;
+		}
 	}
-	return (rVal);
+	return (0);
 }
 
 /**
  * initStruct - initialize the argument structure
- * @args: args
+ * @args: the arguments
+ * @env: the environ
  */
 void initStruct(arguments_t *args, char **env)
 {
@@ -79,12 +71,13 @@ void initStruct(arguments_t *args, char **env)
 /**
  * sigintH - handles SIGINT (CTRL-C)
  * @signum: signal number caught by signal, 2 for SIGINT
+ * Return : void
  **/
 void sigintH(int signum)
 {
-	if (signum == 2)
+	if (signum == SIGINT)
 	{
-		_putchar('\n', 1);
-		_puts(PROMPT, 1);
+		_putchar('\n', STDOUT_FILENO);
+		_puts(PROMPT, STDOUT_FILENO);
 	}
 }

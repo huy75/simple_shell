@@ -50,10 +50,10 @@ int runExec(char **token, char **env)
  */
 void printErr(arguments_t *args)
 {
-	_puts(args->argv, 2);
-       	_puts(": ", 2);
-       	print_number(args->lCnt);
-       	_puts(": ", 2);
-       	_puts(args->toks[0], 2);
-       	_puts(": not found\n", 2);
+	_puts(args->argv, STDERR_FILENO);
+	_puts(": ", STDERR_FILENO);
+	print_number(args->lCnt);
+	_puts(": ", STDERR_FILENO);
+	_puts(args->toks[0], STDERR_FILENO);
+	_puts(": not found\n", STDERR_FILENO);
 }

@@ -2,19 +2,20 @@
 
 /**
  * cpyEnv - copies env to linked list
+ * @args: the arguments
  * Return: Pointer to first node
  */
 list_t *cpyEnv(arguments_t *args)
 {
-        int idx = 0;
-        list_t *head = NULL;
+	int idx = 0;
+	list_t *head = NULL;
 
-        while (args->env[idx])
-        {
-                add_node_end(&head, args->env[idx]);
-                idx++;
-        }
-        return (head);
+	while (args->env[idx])
+	{
+		add_node_end(&head, args->env[idx]);
+		idx++;
+	}
+	return (head);
 }
 
 /**
@@ -76,7 +77,7 @@ list_t *_getenvLL(char *name, arguments_t *args)
 }
 
 /**
- * delete_nodeint_at_index - deletes the node at index of the linked list.
+ * delete_node_at_index - deletes the node at index of the linked list.
  * @head: points to the head of the list
  * @index: the index of the node to delete
  * Return: 1 if it succeeded, -1 if it failed
@@ -113,7 +114,7 @@ int delete_node_at_index(list_t **head, unsigned int index)
 }
 
 /**
- * free_listint2 - frees all nodes of a list
+ * free_list2 - frees all nodes of a list
  * @head: point the head of list
  * Return: void
  */

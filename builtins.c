@@ -10,7 +10,7 @@ int builtins(arguments_t *args)
 
 	builtins_t bDict[] = {
 		{"env", _bEnv },
-		{"exit",_bExit},
+		{"exit", _bExit},
 		{"setenv", _bSEnv},
 		{"unsetenv", _bUEnv},
 		{NULL, NULL}
@@ -69,18 +69,18 @@ int _bSEnv(arguments_t *args)
 	list_t *envv;
 
 	if (!(args->toks[1]) || !(args->toks[2]))
-	      return (1);
+		return (EXIT_FAILURE);
 
-        buf = malloc(_strlen(args->toks[1]) + _strlen(args->toks[2]) + 2);
+	buf = malloc(_strlen(args->toks[1]) + _strlen(args->toks[2]) + 2);
 	if (!buf)
-		return (1);
+		return (EXIT_FAILURE);
 
-       	_strcpy(buf, args->toks[1]);
-       	buf = str_concat(buf, "=");
-       	buf = str_concat(buf, args->toks[2]);
+	_strcpy(buf, args->toks[1]);
+	buf = str_concat(buf, "=");
+	buf = str_concat(buf, args->toks[2]);
 
-        envv = _getenvLL(args->toks[1], args);
-        if (envv)
+	envv = _getenvLL(args->toks[1], args);
+	if (envv)
 	{
 		free(envv->str);
 		envv->str = buf;
