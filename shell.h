@@ -71,11 +71,11 @@ typedef struct builtins_s
 int main(int argc, char **argv, char **env);
 void initStruct(arguments_t *args, int argc, char **argv, char **env);
 void sigintH(int signum);
-void freeAll(arguments_t *args);
+void freeToks(arguments_t *args);
 
 /* fork.c module */
-int runExec(char **token, char **env);
-void printErr(arguments_t *argumentsargv);
+int runExec(arguments_t *args);
+void printErr(arguments_t *args);
 
 /* parse.c module */
 char **parseBuffer(char *buffer);
@@ -114,7 +114,7 @@ list_t *cpyEnv(arguments_t *args);
 list_t *add_node_end(list_t **head, const char *str);
 list_t *_getenvLL(char *name, arguments_t *args);
 int delete_node_at_index(list_t **head, unsigned int index);
-void free_list2(list_t **head);
+void freeEnv(arguments_t *args);
 
 /* _getline.c module */
 char *_strcpy(char *dest, char *src);

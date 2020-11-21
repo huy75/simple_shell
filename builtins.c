@@ -64,10 +64,12 @@ int _bExit(arguments_t *args)
 			printErr(args);
 			return (0);
 		}
-		freeAll(args);
+		freeToks(args);
+		freeEnv(args);
 		exit(exitN);
 	}
-	freeAll(args);
+	freeToks(args);
+	freeEnv(args);
 	exit(args->exitS);
 }
 

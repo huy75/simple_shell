@@ -6,11 +6,11 @@
  * @env: environ
  * Return: return 0 if success
  */
-int runExec(char **token, char **env)
+int runExec(arguments_t *args)
 {
 	int status;
 	pid_t pid;
-	char *command = path(token[0], env);
+	char *command = path(args->toks[0], args->env);
 
 	if (command == NULL)
 		return (EXIT_FAILURE);
@@ -25,7 +25,7 @@ int runExec(char **token, char **env)
 	}
 	if (pid == 0)
 	{
-		if (execve(command, token, env) == -1)
+		if (execve(command, args->toks, args->env) == -1)
 		{
 			free(command);
 			command = NULL;
@@ -36,8 +36,8 @@ int runExec(char **token, char **env)
 	{
 		if (wait(&status) == -1)
 			perror("wait");
-/*		if (WIFEXITED(status))
-		rVal = WEXITSTATUS(status); */
+		if (WIFEXITED(status))
+			args->exitS = WEXITSTATUS(status);
 	}
 	free(command);
 	command = NULL;

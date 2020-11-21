@@ -114,18 +114,23 @@ int delete_node_at_index(list_t **head, unsigned int index)
 }
 
 /**
- * free_list2 - frees all nodes of a list
- * @head: point the head of list
+ * freeEnv - frees all nodes of a list
+ * @args: the arguments
  * Return: void
  */
-void free_list2(list_t **head)
+void freeEnv(arguments_t *args)
 {
 	list_t *next, *ptr;
-
-	if (!head)
+/*
+	free(args->argv);
+	args->argv = NULL;
+	free(args->env);
+	args->env = NULL;
+*/
+	if (!(args->head))
 		return;
 
-	next = *head;
+	next = args->head;
 	while (next)
 	{
 		ptr = next;
@@ -133,5 +138,5 @@ void free_list2(list_t **head)
 		free(ptr->str);
 		free(ptr);
 	}
-	*head = NULL;
+	args->head = NULL;
 }

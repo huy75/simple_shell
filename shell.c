@@ -17,26 +17,29 @@ int main(int argc, char **argv, char **env)
 	{
 		if (isatty(STDIN_FILENO) == 1) /* if terminal */
 			_puts(PROMPT, STDOUT_FILENO);
+
 		signal(SIGINT, sigintH); /* ignore Ctrl + C */
+
 		if (_getline(&(arguments.buf), &size, stdin) == -1)
 		{
 			free(arguments.buf);
 			arguments.buf = NULL;
 			break;
 		}
-		if (!_strcmp(arguments.buf, "\n")) /* empty command line */
-			continue;
 		if (arguments.buf[0] == EOF) /* Ctrl + D */
 		{
 			free(arguments.buf);
 			arguments.buf = NULL;
-			break;
+                        break;
 		}
+		if (!_strcmp(arguments.buf, "\n")) /* empty command line */
+			continue;
+
 		arguments.lCnt++;
 		arguments.toks = parseBuffer(arguments.buf);
-		if (builtins(&arguments)) /* not a built-in function */
+		if (builtins(&arguments)) /* run built-in function */
 		{
-			if (runExec(arguments.toks, env)) /* exec in PATH */
+			if (runExec(&arguments)) /* exec in PATH */
 			{
 				errno = ENOENT;
 				printErr(&arguments);
@@ -47,7 +50,8 @@ int main(int argc, char **argv, char **env)
 		free(arguments.toks);
 		arguments.toks = NULL;
 	}
-	freeAll(&arguments);
+	freeToks(&arguments);
+	freeEnv(&arguments);
 	return (0);
 }
 
@@ -90,15 +94,14 @@ void sigintH(int signum)
 }
 
 /**
- * freeAll - free all malloc'ed
+ * freeToks - free all tokens
  * @args: the structure arguments
  * Return: void
  */
-void freeAll(arguments_t *args)
+void freeToks(arguments_t *args)
 {
 	if (args->toks)
 		free(*args->toks);
 	free(args->toks);
 	args->toks = NULL;
-	free_list2(&(args->head));
 }
