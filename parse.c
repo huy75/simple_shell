@@ -19,7 +19,7 @@ char **parseBuffer(char *buffer)
 		return (av);
 
 	token = strtok(buffer, DELIMITERS);
-
+ 
 	for (idx = 0; token; idx++)
 	{
 		av[idx] = token;
