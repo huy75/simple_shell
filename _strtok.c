@@ -1,0 +1,66 @@
+#include "shell.h"
+
+/**
+  * get_del - get the right delimiter for tokens
+  * @str: string to parse
+  * @delim: list of delimiters
+  * Return: the delimiter that appears first
+  */
+
+char get_del(char *str, const char *delim)
+{
+	int i = 0, j;
+
+	while (str[i])
+	{
+		j = 0;
+		while (delim[j])
+		{
+			if (str[i] == delim[j])
+				return (delim[j]);
+			j++;
+		}
+		i++;
+	}
+	return (delim[0]);
+}
+
+/**
+  * _strtok - extract tokens from strings
+  * @str: string to be parsed
+  * @delim: delimiter that separate each token
+  * Return: a token, or NULL if no more
+  */
+
+char *_strtok(char *str, const char *delim)
+{
+	static char *tmp;
+	char *next;
+	unsigned int dif;
+	char *token;
+	char cdel;
+
+	if (str != NULL)
+		tmp = str;
+
+	token = tmp;
+	if (token == NULL)
+		return (NULL);
+
+	cdel = get_del(tmp, delim);
+	next = _strchr(tmp, cdel);
+	if (next != NULL)
+	{
+		dif = _strlen(tmp) - _strlen(next);
+		token = tmp;
+		next++;
+		tmp = next;
+		token[dif] = '\0';
+	}
+	if (next == NULL)
+	{
+		token = tmp;
+		tmp = NULL;
+	}
+	return (token);
+}

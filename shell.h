@@ -97,6 +97,7 @@ int _strcmp(char *s1, char *s2);
 int _strncmp(const char *s1, const char *s2, size_t n);
 char *_strstr(char *haystack, char *needle);
 int _atoi(char *s);
+char *_strchr(char *s, char c);
 
 /* _realloc.c module */
 char *_memcpy(char *dest, char *src, unsigned int n);
@@ -119,5 +120,9 @@ void freeEnv(arguments_t *args);
 /* _getline.c module */
 char *_strcpy(char *dest, char *src);
 ssize_t _getline(char **lineptr, size_t *n, FILE *stream);
+
+/* _strtok.c module */
+char get_del(char *str, const char *delim);
+char *_strtok(char *str, const char *delim);
 
 #endif /* __SHELL__ */
