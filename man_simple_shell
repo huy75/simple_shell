@@ -1,0 +1,96 @@
+.TH man 1 "November 2020" "1.0" "simple_shell man page"
+.SH NAME
+.B simple_shell
+- a custom implementation of Shell (the command line interpreter).
+.SH SYNOPSIS
+.B ./hsh
+ : takes no argument.
+.br
+.SH DESCRIPTION
+This a Shell emulator with limited functionnalities. A two-week project f\
+rom Holberton School.
+.br
+A command line interpreter reads commands from the standard input,
+interprets them, and then execute the command.
+.br
+The function prints to the standard output or error stream.
+It then prompts the user for more input.
+.br
+This is the default behavior until the shell is terminated.
+.br
+.br
+The program is compiled with the following command:
+.br
+.B gcc -Wall -Werror -Wextra -pedantic *.c -o hsh
+.br
+enter
+.B ./hsh
+to execute simple_shell.
+.SH USAGE
+$ command [-flag] [file / directory]
+.b
+The command could be any executable file from the PATH environment variable,
+with or without the full path provided in the input command.
+.br
+For example, /bin directory contains most of the commands,
+like ls, clear, pwd, which and so on.
+.br
+   Ctrl-D - End of file: exit shell
+   Ctrl-C - Does NOT exit shell
+   ; - Command separator for command chaining
+   # - Comment indicator
+.SH BUILT-INS
+In addition to the executable commands available with the paths,
+the following built-in commands have been implemented:
+.br
+	exit [status] - exit shell with or without an exit status
+.br
+	env - print out the environment variables
+.br
+	setenv [name] [value] - set a new environment variable, or modify an existing one
+.br
+	unsetenv [name] - remove an environment variable
+.br
+.SH EXAMPLE USAGE
+.sp
+.B $ ls -l /usr
+.RS
+will list all the files in the /usr directory, in long format.
+.RE
+.B $ nonsense
+.RS
+will throw an error message
+.RE
+.B $ exit 98
+.RS
+will exit with a status of 98.
+.RE
+. B $
+.br
+.B Return Value
+: returns the most recent exit value of a command.
+.br
+.SH Errors
+The error messages should be the same as shell.
+.SH FILES
+.sp
+.B /simple_shell/shell.c
+.br
+	Is the entry point and the main function.
+.br
+.SH SEE ALSO
+sh, bash, csh, zsh
+.SH NOTES
+No non-interactive mode, ./hsh does not accept parameters.
+.SH BUGS
+When run with Valgrind, there is no memory leak, but some errors are detected.
+.SH IN PROGRESS
+The following features are currently in progress
+    && and || operators
+    aliases
+    cd
+    help
+    history
+    taking a file as input
+.SH AUTHOR
+Yago Martinez-Falero Hein (yagomfh@gmail.com), Huy Nguyen (huy.nguyen@holbertonschool.com), Cohort 13.
