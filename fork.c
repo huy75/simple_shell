@@ -2,8 +2,7 @@
 
 /**
  * runExec - run the executable
- * @token: the command in full
- * @env: environ
+ * @args: the arguments
  * Return: return 0 if success
  */
 int runExec(arguments_t *args)
@@ -63,12 +62,17 @@ void printErr(arguments_t *args)
 		_puts(": not found\n", STDERR_FILENO);
 		args->exitS = 127;
 		break;
-	case EINVAL:
+	case EBADRQC:
 		_puts(args->toks[0], STDERR_FILENO);
 		_puts(": Illegal number: ", STDERR_FILENO);
 		_puts(args->toks[1], STDERR_FILENO);
 		_puts("\n", STDERR_FILENO);
 		args->exitS = 128;
+		break;
+	case EINVAL:
+		_puts(args->toks[0], STDERR_FILENO);
+		_puts(": Invalid argument(s)\n", STDERR_FILENO);
+		args->exitS = 2;
 		break;
 	}
 }

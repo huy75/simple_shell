@@ -21,20 +21,11 @@ int main(int argc, char **argv, char **env)
 		signal(SIGINT, sigintH); /* ignore Ctrl + C */
 
 		if (_getline(&(arguments.buf), &size, stdin) == -1)
-		{
-			free(arguments.buf);
-			arguments.buf = NULL;
 			break;
-		}
 		if (arguments.buf[0] == EOF) /* Ctrl + D */
-		{
-			free(arguments.buf);
-			arguments.buf = NULL;
-                        break;
-		}
+			break;
 		if (!_strcmp(arguments.buf, "\n")) /* empty command line */
 			continue;
-
 		arguments.lCnt++;
 		arguments.toks = parseBuffer(arguments.buf);
 		if (builtins(&arguments)) /* run built-in function */
@@ -50,6 +41,8 @@ int main(int argc, char **argv, char **env)
 		free(arguments.toks);
 		arguments.toks = NULL;
 	}
+	free(arguments.buf);
+	arguments.buf = NULL;
 	freeToks(&arguments);
 	freeEnv(&arguments);
 	return (0);

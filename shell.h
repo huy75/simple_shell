@@ -73,10 +73,6 @@ void initStruct(arguments_t *args, int argc, char **argv, char **env);
 void sigintH(int signum);
 void freeToks(arguments_t *args);
 
-/* fork.c module */
-int runExec(arguments_t *args);
-void printErr(arguments_t *args);
-
 /* parse.c module */
 char **parseBuffer(char *buffer);
 
@@ -84,6 +80,22 @@ char **parseBuffer(char *buffer);
 char *_getenv(const char *name, char **env);
 char *path(char *av0, char **env);
 int scan_path_vars(char *path);
+
+/* fork.c module */
+int runExec(arguments_t *args);
+void printErr(arguments_t *args);
+
+/* _realloc.c module */
+char *_memcpy(char *dest, char *src, unsigned int n);
+void *_realloc(void *ptr, unsigned int old_size, unsigned int new_size);
+
+/* _getline.c module */
+char *_strcpy(char *dest, char *src);
+ssize_t _getline(char **lineptr, size_t *n, FILE *stream);
+
+/* _strtok.c module */
+char get_del(char *str, const char *delim);
+char *_strtok(char *str, const char *delim);
 
 /* strings.c module */
 int _putchar(char c, int fd);
@@ -103,10 +115,6 @@ char *_strchr(char *s, char c);
 char *_strdup(char *str);
 char *_strcat(char *dest, char *src);
 
-/* _realloc.c module */
-char *_memcpy(char *dest, char *src, unsigned int n);
-void *_realloc(void *ptr, unsigned int old_size, unsigned int new_size);
-
 /* builtins.c module */
 int builtins(arguments_t *args);
 int _bEnv(arguments_t *args);
@@ -114,19 +122,19 @@ int _bExit(arguments_t *args);
 int _bSEnv(arguments_t *args);
 int _bUEnv(arguments_t *args);
 
+/* builtins2.c module */
+int _bHelp(arguments_t *args);
+
+/* help.c module */
+void helpEnv(void);
+void helpSEnv(void);
+void helpUEnv(void);
+
 /* environment.c module */
 list_t *cpyEnv(arguments_t *args);
 list_t *add_node_end(list_t **head, char *str);
 list_t *_getenvLL(char *name, arguments_t *args);
 int delete_node_at_index(list_t **head, unsigned int index);
 void freeEnv(arguments_t *args);
-
-/* _getline.c module */
-char *_strcpy(char *dest, char *src);
-ssize_t _getline(char **lineptr, size_t *n, FILE *stream);
-
-/* _strtok.c module */
-char get_del(char *str, const char *delim);
-char *_strtok(char *str, const char *delim);
 
 #endif /* __SHELL__ */

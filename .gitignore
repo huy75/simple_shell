@@ -1,6 +1,6 @@
- Ignore all
-# *
+# Ignore all
+ *
 # Unignore all with extensions
-# !*.*
+ !*.*
 # Ignore ~ files
 *~

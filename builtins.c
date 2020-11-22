@@ -13,6 +13,7 @@ int builtins(arguments_t *args)
 		{"exit", _bExit},
 		{"setenv", _bSEnv},
 		{"unsetenv", _bUEnv},
+		{"help", _bHelp},
 		{NULL, NULL}
 	};
 
@@ -61,9 +62,9 @@ int _bExit(arguments_t *args)
 		exitN = _atoi(args->toks[1]);
 		if (!exitN) /* invalid number */
 		{
-			errno = EINVAL;
+			errno = EBADRQC;
 			printErr(args);
-			return (EXIT_FAILURE);
+			return (0);
 		}
 		freeToks(args);
 		freeEnv(args);
@@ -77,7 +78,7 @@ int _bExit(arguments_t *args)
 /**
  * _bSEnv - sets enviroment variable
  * @args: Arguments structure
- * Return: 0 on success
+ * Return: 0
  */
 int _bSEnv(arguments_t *args)
 {
@@ -85,8 +86,11 @@ int _bSEnv(arguments_t *args)
 	list_t *envv;
 
 	if (!(args->toks[1]) || !(args->toks[2]))
-		return (EXIT_FAILURE);
-
+	{
+		errno = EINVAL;
+		printErr(args);
+		return (0);
+	}
 	buf = malloc(_strlen(args->toks[1]) + _strlen(args->toks[2]) + 2);
 	if (!buf)
 		return (EXIT_FAILURE);
@@ -102,7 +106,7 @@ int _bSEnv(arguments_t *args)
 		free(envv->str);
 		envv->str = _strdup(buf);
 		if (!envv->str)
-			return(free(envv), EXIT_FAILURE);
+			return (free(envv), EXIT_FAILURE);
 		free(buf);
 		return (EXIT_SUCCESS);
 	}
@@ -115,7 +119,7 @@ int _bSEnv(arguments_t *args)
 /**
  * _bUEnv - removes an enviroment variable
  * @args: Arguments structure
- * Return: 0 on success
+ * Return: 0
  */
 int _bUEnv(arguments_t *args)
 {
@@ -135,7 +139,9 @@ int _bUEnv(arguments_t *args)
 			envv = envv->next;
 			idx++;
 		}
-		return (0);
+		return (EXIT_SUCCESS);
 	}
-	return (1);
+	errno = EINVAL;
+	printErr(args);
+	return (0);
 }
