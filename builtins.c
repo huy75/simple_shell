@@ -48,21 +48,22 @@ int _bEnv(arguments_t *args)
 /**
  * _bExit - built-in exit
  * @args: argument structure
- * Return: 0
+ * Return: EXIT_FAILURE or no return since exit
  */
 
 int _bExit(arguments_t *args)
 {
 	int exitN;
+	int xStatus = args->exitS;
 
-	if (args->toks[1])
+	if (args->toks[1]) /* there is an exit value */
 	{
 		exitN = _atoi(args->toks[1]);
-		if (!exitN)
+		if (!exitN) /* invalid number */
 		{
 			errno = EINVAL;
 			printErr(args);
-			return (0);
+			return (EXIT_FAILURE);
 		}
 		freeToks(args);
 		freeEnv(args);
@@ -70,7 +71,7 @@ int _bExit(arguments_t *args)
 	}
 	freeToks(args);
 	freeEnv(args);
-	exit(args->exitS);
+	exit(xStatus);
 }
 
 /**
@@ -91,17 +92,21 @@ int _bSEnv(arguments_t *args)
 		return (EXIT_FAILURE);
 
 	_strcpy(buf, args->toks[1]);
-	buf = str_concat(buf, "=");
-	buf = str_concat(buf, args->toks[2]);
+	_strcat(buf, "=");
+	_strcat(buf, args->toks[2]);
 
 	envv = _getenvLL(args->toks[1], args);
-	if (envv)
+
+	if (envv) /* existing */
 	{
 		free(envv->str);
-		envv->str = buf;
+		envv->str = _strdup(buf);
+		if (!envv->str)
+			return(free(envv), EXIT_FAILURE);
 		free(buf);
 		return (EXIT_SUCCESS);
 	}
+	/* new variable */
 	add_node_end(&(args->head), buf);
 	free(buf);
 	return (EXIT_SUCCESS);

@@ -24,7 +24,7 @@ list_t *cpyEnv(arguments_t *args)
  * @str: what goes in the new node
  * Return: address of new node or NULL
  */
-list_t *add_node_end(list_t **head, const char *str)
+list_t *add_node_end(list_t **head, char *str)
 {
 	list_t *newTail;
 	list_t *ptr = *head;
@@ -36,7 +36,7 @@ list_t *add_node_end(list_t **head, const char *str)
 	if (!newTail)
 		return (NULL);
 
-	newTail->str = strdup(str);
+	newTail->str = _strdup(str);
 	if (!newTail->str)
 	{
 		free(newTail);
@@ -103,6 +103,7 @@ int delete_node_at_index(list_t **head, unsigned int index)
 		if (idx == index)
 		{
 			node->next = ptr->next;
+			free(ptr->str);
 			free(ptr);
 			return (1);
 		}
@@ -120,21 +121,15 @@ int delete_node_at_index(list_t **head, unsigned int index)
  */
 void freeEnv(arguments_t *args)
 {
-	list_t *next, *ptr;
-/*
-	free(args->argv);
-	args->argv = NULL;
-	free(args->env);
-	args->env = NULL;
-*/
+	list_t *ptr;
+
 	if (!(args->head))
 		return;
 
-	next = args->head;
-	while (next)
+	while (args->head)
 	{
-		ptr = next;
-		next = next->next;
+		ptr = args->head;
+		args->head = args->head->next;
 		free(ptr->str);
 		free(ptr);
 	}

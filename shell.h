@@ -99,6 +99,10 @@ char *_strstr(char *haystack, char *needle);
 int _atoi(char *s);
 char *_strchr(char *s, char c);
 
+/* strings3.c module */
+char *_strdup(char *str);
+char *_strcat(char *dest, char *src);
+
 /* _realloc.c module */
 char *_memcpy(char *dest, char *src, unsigned int n);
 void *_realloc(void *ptr, unsigned int old_size, unsigned int new_size);
@@ -112,7 +116,7 @@ int _bUEnv(arguments_t *args);
 
 /* environment.c module */
 list_t *cpyEnv(arguments_t *args);
-list_t *add_node_end(list_t **head, const char *str);
+list_t *add_node_end(list_t **head, char *str);
 list_t *_getenvLL(char *name, arguments_t *args);
 int delete_node_at_index(list_t **head, unsigned int index);
 void freeEnv(arguments_t *args);
