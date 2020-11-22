@@ -129,6 +129,8 @@ int _bHelp(arguments_t *args);
 void helpEnv(void);
 void helpSEnv(void);
 void helpUEnv(void);
+void helpHelp(void);
+void helpExit(void);
 
 /* environment.c module */
 list_t *cpyEnv(arguments_t *args);

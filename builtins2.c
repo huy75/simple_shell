@@ -39,5 +39,15 @@ int _bHelp(arguments_t *args)
 		helpUEnv();
 		return (0);
 	}
+	if (!_strcmp(bfc, "help"))
+        {
+                helpHelp();
+                return (0);
+        }
+        if (!_strcmp(bfc, "exit"))
+        {
+                helpExit();
+                return (0);
+        }
 	return (0);
 }
