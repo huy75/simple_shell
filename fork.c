@@ -74,5 +74,12 @@ void printErr(arguments_t *args)
 		_puts(": Invalid argument(s)\n", STDERR_FILENO);
 		args->exitS = 2;
 		break;
+	case ENOTDIR:
+		_puts(args->toks[0], STDERR_FILENO);
+		_puts(": can't cd to ", STDERR_FILENO);
+		_puts(args->toks[1], STDERR_FILENO);
+		_putchar('\n', STDERR_FILENO);
+		args->exitS = 67;
+		break;
 	}
 }

@@ -51,3 +51,49 @@ int _bHelp(arguments_t *args)
         }
 	return (0);
 }
+
+void arrange_env(char *new_pwd, char *old_pwd, arguments_t *args)
+{
+	args->toks[1] = "PWD";
+	args->toks[2] = new_pwd;
+	_bSEnv(args);
+	args->toks[1] = "OLDPWD";
+	args->toks[2] = old_pwd;
+	_bSEnv(args);
+}
+
+int _bCd(arguments_t *args)
+{
+	char old_pwd[120];
+	char *new_pwd;
+
+
+	(void)args;
+
+	getcwd(old_pwd, 120);
+	if (args->toks[1] == NULL)
+	{
+		new_pwd = _getenvVAL("HOME", args);
+		chdir(new_pwd);
+		arrange_env(new_pwd, old_pwd, args);
+	}
+	else if (args->toks[1][0] == '-')
+	{
+		new_pwd = _getenvVAL("OLDPWD", args);
+		chdir(new_pwd);
+		arrange_env(new_pwd, old_pwd, args);
+	}
+	else
+	{
+		new_pwd = args->toks[1];
+		if (chdir(new_pwd) == -1)
+		{
+			errno = ENOTDIR;
+			printErr(args);
+			return (0);
+		}
+		arrange_env(new_pwd, old_pwd, args);
+	}
+	return (EXIT_SUCCESS);
+}
+
