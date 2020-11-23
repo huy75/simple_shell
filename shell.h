@@ -141,4 +141,7 @@ list_t *_getenvLL(char *name, arguments_t *args);
 int delete_node_at_index(list_t **head, unsigned int index);
 void freeEnv(arguments_t *args);
 
+/* environment2.c module */
+char *_getenvVAL(char *var, arguments_t *args);
+
 #endif /* __SHELL__ */
