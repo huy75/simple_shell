@@ -25,32 +25,25 @@ int _bHelp(arguments_t *args)
 
 	bfc = arg[1];
 	if (!_strcmp(bfc, "env"))
-	{
 		helpEnv();
-		return (0);
-	}
 	if (!_strcmp(bfc, "setenv"))
-	{
 		helpSEnv();
-		return (0);
-	}
 	if (!_strcmp(bfc, "unsetenv"))
-	{
 		helpUEnv();
-		return (0);
-	}
 	if (!_strcmp(bfc, "help"))
-        {
-                helpHelp();
-                return (0);
-        }
-        if (!_strcmp(bfc, "exit"))
-        {
-                helpExit();
-                return (0);
-        }
+		helpHelp();
+	if (!_strcmp(bfc, "exit"))
+		helpExit();
 	return (0);
 }
+
+/**
+  * arrange_env - updates PwD and OLDPWD if successful cd
+  * @new_pwd: new PWD val
+  * @old_pwd: old PWD val
+  * @args: args
+  * Return: void
+  */
 
 void arrange_env(char *new_pwd, char *old_pwd, arguments_t *args)
 {
@@ -61,6 +54,12 @@ void arrange_env(char *new_pwd, char *old_pwd, arguments_t *args)
 	args->toks[2] = old_pwd;
 	_bSEnv(args);
 }
+
+/**
+  * _bCd - changes current directory to args->toks[1]
+  * @args: args
+  * Return: 0 on failure, EXIT_SUCCESS on succes
+  */
 
 int _bCd(arguments_t *args)
 {
