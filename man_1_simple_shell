@@ -43,20 +43,14 @@ like ls, clear, pwd, which and so on.
 In addition to the executable commands available with the paths,
 the following built-in commands have been implemented:
 .br
-        env - print out the environment variables
-.br
-	setenv [name] [value] - set a new environment variable, or modify an existing one
-.br
-	unsetenv [name] - remove an environment variable
-.br
-        exit [status] - exit shell with or without an exit status
-.br
-	help [command] - display help on [command]
-.br
-	cd [directory] - change to [directory]
-.br
-	history - print the history list
-.br
+   env - prints out the environment variables
+   setenv [name] [value] - sets a new environment variable,
+                           or modifies an existing one
+   unsetenv [name] - removes an environment variable
+   exit [status] - exits shell with or without an exit status
+   help [command] - displays help on [command]
+   cd [directory] - changes to [directory]
+   history - prints the history list
 .SH EXAMPLE USAGE
 .sp
 .B $ ls -l /usr
