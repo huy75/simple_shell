@@ -124,6 +124,8 @@ int _bUEnv(arguments_t *args);
 
 /* builtins2.c module */
 int _bHelp(arguments_t *args);
+void arrange_env(char *new_pwd, char *old_pwd, arguments_t *args);
+int _bCd(arguments_t *args);
 
 /* help.c module */
 void helpEnv(void);
