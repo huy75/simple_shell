@@ -54,7 +54,7 @@ void helpHelp(void)
 void helpExit(void)
 {
 	_puts("exit [n]\n", STDIN_FILENO);
-	_puts("    - exit the Shell with status [N], ", STDIN_FILENO);
+	_puts("    - exits the Shell with status [N], ", STDIN_FILENO);
 	_puts("if [N] is specified.\n", STDIN_FILENO);
 	_puts("    - if not, with the status of the last command.\n", STDIN_FILENO);
 }

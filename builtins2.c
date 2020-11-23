@@ -18,8 +18,9 @@ int _bHelp(arguments_t *args)
 		_puts("to find out more about the built-in ", STDIN_FILENO);
 		_puts("functions:\n\n", STDIN_FILENO);
 		_puts("env\nsetenv [name]\nunsetenv [name]\n", STDIN_FILENO);
-		_puts("help [pattern...]\n", STDIN_FILENO);
 		_puts("exit [n]\n", STDIN_FILENO);
+		_puts("help [pattern...]\ncd [directory]\n", STDIN_FILENO);
+		_puts("history\n", STDIN_FILENO);
 		return (0);
 	}
 
@@ -30,10 +31,10 @@ int _bHelp(arguments_t *args)
 		helpSEnv();
 	if (!_strcmp(bfc, "unsetenv"))
 		helpUEnv();
+	if (!_strcmp(bfc, "exit"))
+                helpExit();
 	if (!_strcmp(bfc, "help"))
 		helpHelp();
-	if (!_strcmp(bfc, "exit"))
-		helpExit();
 	if (!_strcmp(bfc, "cd"))
                 helpCd();
         if (!_strcmp(bfc, "history"))

@@ -43,13 +43,13 @@ like ls, clear, pwd, which and so on.
 In addition to the executable commands available with the paths,
 the following built-in commands have been implemented:
 .br
-	exit [status] - exit shell with or without an exit status
-.br
-	env - print out the environment variables
+        env - print out the environment variables
 .br
 	setenv [name] [value] - set a new environment variable, or modify an existing one
 .br
 	unsetenv [name] - remove an environment variable
+.br
+        exit [status] - exit shell with or without an exit status
 .br
 	help [command] - display help on [command]
 .br

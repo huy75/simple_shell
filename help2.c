@@ -10,8 +10,8 @@ void helpCd(void)
 	_puts("    - changes to [directory]\n", STDIN_FILENO);
 	_puts("    - if no argument is given, ", STDIN_FILENO);
 	_puts("the command must be interpreted like cd $HOME.\n", STDIN_FILENO);
-	_puts("    - 'cd -' will get back to the previous directory.\n", STDIN_FILENO);
-	_puts("    - the environment variable $PWD is updated.\n", STDIN_FILENO);
+	_puts("    - 'cd -' will get back to the previous directory.\n", 1);
+	_puts("    - the environment variable $PWD is updated.\n", 1);
 }
 
 /**
