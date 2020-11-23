@@ -54,12 +54,15 @@ char *_getenv(const char *name, char **env)
 int scan_path_vars(char *path)
 {
 	char *binloc, *emptyloc;
-	int lenB, lenE;
+	int lenB, lenE, lenP;
 
 	if (path[0] == ':')
 		return (1);
 	if (path[0] == '/' && path[1] == 'b')
 		return (0);
+	lenP = _strlen(path);
+	if (path[lenP] == ':' || path[lenP - 1] == ':')
+		return (1);
 	binloc = _strstr(path, ":/bin");
 	emptyloc = _strstr(path, "::");
 	if (binloc != NULL && emptyloc != NULL)
