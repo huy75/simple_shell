@@ -59,7 +59,7 @@ list_t *add_node_end(list_t **head, char *str)
  * _getenvLL - gets an env variable from a name
  * @name: char * to search for
  * @args: args
- * Return: char * containing nodes value, NULL if not found
+ * Return: list_t * containing nodes value, NULL if not found
  */
 list_t *_getenvLL(char *name, arguments_t *args)
 {
