@@ -34,6 +34,10 @@ int _bHelp(arguments_t *args)
 		helpHelp();
 	if (!_strcmp(bfc, "exit"))
 		helpExit();
+	if (!_strcmp(bfc, "cd"))
+                helpCd();
+        if (!_strcmp(bfc, "history"))
+                helpHist();
 	return (0);
 }
 

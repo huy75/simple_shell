@@ -19,6 +19,8 @@
 #define PROMPT "> "
 #define PRSIZE _strlen(PROMPT)
 #define TOKENBUF 5
+#define HISTORY ".simple_shell_history"
+#define HISTSIZE 1024
 
 /**
  * struct list_s - singly linked list
@@ -133,6 +135,10 @@ void helpSEnv(void);
 void helpUEnv(void);
 void helpHelp(void);
 void helpExit(void);
+
+/* help2.c module */
+void helpCd(void);
+void helpHist(void);
 
 /* environment.c module */
 list_t *cpyEnv(arguments_t *args);
