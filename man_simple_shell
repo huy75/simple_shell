@@ -51,6 +51,12 @@ the following built-in commands have been implemented:
 .br
 	unsetenv [name] - remove an environment variable
 .br
+	help [command] - display help on [command]
+.br
+	cd [directory] - change to [directory]
+.br
+	history - print the history list
+.br
 .SH EXAMPLE USAGE
 .sp
 .B $ ls -l /usr
@@ -88,9 +94,6 @@ When run with Valgrind, there is no memory leak, but some errors are detected.
 The following features are currently in progress
     && and || operators
     aliases
-    cd
-    help
-    history
     taking a file as input
 .SH AUTHOR
 Yago Martinez-Falero Hein (yagomfh@gmail.com), Huy Nguyen (huy.nguyen@holbertonschool.com), Cohort 13.
