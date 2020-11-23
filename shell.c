@@ -45,6 +45,7 @@ int main(int argc, char **argv, char **env)
 	arguments.buf = NULL;
 	freeToks(&arguments);
 	freeEnv(&arguments);
+	freeAlias(&arguments);
 	return (0);
 }
 
@@ -66,6 +67,7 @@ void initStruct(arguments_t *args, int argc, char **argv, char **env)
 		args->argv = argv[0];
 		args->env = env;
 		args->lCnt = 0;
+		args->head_alias = NULL;
 		args->head = cpyEnv(args);
 		args->index = 0;
 		args->exitS = 0;

@@ -100,4 +100,21 @@ int _bCd(arguments_t *args)
 	}
 	return (EXIT_SUCCESS);
 }
+/**
+  * _bAlias - setsup, prints, overwrites aliases
+  * @args: args
+  * Return: EXIT_SUCCESS
+  */
 
+int _bAlias(arguments_t *args)
+{
+	if (args->toks[1] == NULL)
+	{
+		print_alias(args);
+	}
+	if (args->toks[1] != NULL)
+	{
+		setup_alias(args);
+	}
+	return (EXIT_SUCCESS);
+}

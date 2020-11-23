@@ -42,6 +42,7 @@ typedef struct list_s
  * @argv: argv
  * @env: env
  * @lCnt: line count
+ * @head_alias: first node for alias
  * @head: first node
  * @index: to delete node
  * @exitS: exit status
@@ -54,6 +55,7 @@ typedef struct arguments
 	char *argv;
 	char **env;
 	int lCnt;
+	list_t *head_alias;
 	list_t *head;
 	int index;
 	int exitS;
@@ -129,6 +131,7 @@ int _bUEnv(arguments_t *args);
 int _bHelp(arguments_t *args);
 void arrange_env(char *new_pwd, char *old_pwd, arguments_t *args);
 int _bCd(arguments_t *args);
+int _bAlias(arguments_t *args);
 
 /* help.c module */
 void helpEnv(void);
@@ -150,5 +153,12 @@ void freeEnv(arguments_t *args);
 
 /* environment2.c module */
 char *_getenvVAL(char *var, arguments_t *args);
+
+/* alias.c module */
+void print_alias(arguments_t *args);
+list_t *get_alias(char *comp, arguments_t *args);
+void setup_alias(arguments_t *args);
+int scan_match(char *a, char *b);
+void freeAlias(arguments_t *args);
 
 #endif /* __SHELL__ */
