@@ -14,6 +14,7 @@ int builtins(arguments_t *args)
 		{"setenv", _bSEnv},
 		{"unsetenv", _bUEnv},
 		{"help", _bHelp},
+		{"cd", _bCd},
 		{NULL, NULL}
 	};
 

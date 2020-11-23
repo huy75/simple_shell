@@ -124,6 +124,8 @@ int _bUEnv(arguments_t *args);
 
 /* builtins2.c module */
 int _bHelp(arguments_t *args);
+void arrange_env(char *new_pwd, char *old_pwd, arguments_t *args);
+int _bCd(arguments_t *args);
 
 /* help.c module */
 void helpEnv(void);
@@ -138,5 +140,8 @@ list_t *add_node_end(list_t **head, char *str);
 list_t *_getenvLL(char *name, arguments_t *args);
 int delete_node_at_index(list_t **head, unsigned int index);
 void freeEnv(arguments_t *args);
+
+/* environment2.c module */
+char *_getenvVAL(char *var, arguments_t *args);
 
 #endif /* __SHELL__ */
