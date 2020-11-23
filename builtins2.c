@@ -32,13 +32,13 @@ int _bHelp(arguments_t *args)
 	if (!_strcmp(bfc, "unsetenv"))
 		helpUEnv();
 	if (!_strcmp(bfc, "exit"))
-                helpExit();
+		helpExit();
 	if (!_strcmp(bfc, "help"))
 		helpHelp();
 	if (!_strcmp(bfc, "cd"))
-                helpCd();
-        if (!_strcmp(bfc, "history"))
-                helpHist();
+		helpCd();
+	if (!_strcmp(bfc, "history"))
+		helpHist();
 	return (0);
 }
 

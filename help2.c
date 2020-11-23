@@ -21,5 +21,5 @@ void helpCd(void)
 void helpHist(void)
 {
 	_puts("history\n", STDIN_FILENO);
-        _puts("    - [line number] the history list\n", STDIN_FILENO);
+	_puts("    - [line number] the history list\n", STDIN_FILENO);
 }

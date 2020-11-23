@@ -18,7 +18,7 @@ char **parseBuffer(char *buffer)
 	if (!av)
 		return (av);
 
-	token = strtok(buffer, DELIMITERS);
+	token = _strtok(buffer, DELIMITERS);
 	for (idx = 0; token; idx++)
 	{
 		av[idx] = token;
@@ -27,7 +27,7 @@ char **parseBuffer(char *buffer)
 			av = _realloc(av, sizeof(char) * nbTks, sizeof(char) * (nbTks + TOKENBUF));
 			nbTks += TOKENBUF;
 		}
-		token = strtok(NULL, DELIMITERS);
+		token = _strtok(NULL, DELIMITERS);
 	}
 	av[idx] = NULL;
 	return (av);

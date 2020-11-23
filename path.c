@@ -100,14 +100,14 @@ char *path(char *av0, char **env)
 	path = _getenv("PATH", env);
 	if (scan_path_vars(path) == 1 && stat(av0, &st) == 0)
 		return (str_concat(av0, ""));
-	token = strtok(path, delimiter);
+	token = _strtok(path, delimiter);
 	while (token)
 	{
 		result = str_concat(token, command);
 		if (stat(result, &st) == 0)
 			break;
 		free(result);
-		token = strtok(NULL, delimiter);
+		token = _strtok(NULL, delimiter);
 	}
 	free(command);
 	free(path);
