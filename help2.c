@@ -15,11 +15,11 @@ void helpCd(void)
 }
 
 /**
- * helpHist - prints help info for history built-in
+ * helpAlias - prints help info for alias built-in
  * Return: void
  */
-void helpHist(void)
+void helpAlias(void)
 {
-	_puts("history\n", STDIN_FILENO);
-	_puts("    - [line number] the history list\n", STDIN_FILENO);
+	_puts("alias\n", STDIN_FILENO);
+	_puts("    - prints a list of all aliases\n", STDIN_FILENO);
 }

@@ -33,20 +33,16 @@ int main(int argc, char **argv, char **env)
 		{
 			if (runExec(&arguments)) /* exec in PATH */
 			{
-				errno = ENOENT;
+				errno = ENOENT; /* command not found */
 				printErr(&arguments);
 			}
 		}
-		free(arguments.buf);
-		arguments.buf = NULL;
-		free(arguments.toks);
-		arguments.toks = NULL;
+		free(arguments.buf), arguments.buf = NULL;
+		free(arguments.toks), arguments.toks = NULL;
 	}
 	free(arguments.buf);
 	arguments.buf = NULL;
-	freeToks(&arguments);
-	freeEnv(&arguments);
-	freeAlias(&arguments);
+	freeToks(&arguments), freeEnv(&arguments), freeAlias(&arguments);
 	return (0);
 }
 
@@ -59,7 +55,6 @@ int main(int argc, char **argv, char **env)
  */
 void initStruct(arguments_t *args, int argc, char **argv, char **env)
 {
-
 	if (args)
 	{
 		args->buf = NULL;

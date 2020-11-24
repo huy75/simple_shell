@@ -17,10 +17,10 @@
 #include <unistd.h>
 
 #define DELIMITERS " \t\r\n\v\f"
-#define PROMPT "> "
+#define PROMPT "$ "
 #define PRSIZE _strlen(PROMPT)
 #define TOKENBUF 5
-#define HISTORY "/home/vagrant/.simple_shell_history"
+#define HISTORY ".simple_shell_history"
 #define HISTSIZE 4096
 
 /**
@@ -45,6 +45,7 @@ typedef struct list_s
  * @head_alias: first node for alias
  * @head: first node
  * @index: to delete node
+ * @fd: file desriptor history
  * @exitS: exit status
  */
 typedef struct arguments
@@ -58,6 +59,7 @@ typedef struct arguments
 	list_t *head_alias;
 	list_t *head;
 	int index;
+	int fd;
 	int exitS;
 } arguments_t;
 
@@ -142,7 +144,7 @@ void helpExit(void);
 
 /* help2.c module */
 void helpCd(void);
-void helpHist(void);
+void helpAlias(void);
 
 /* environment.c module */
 list_t *cpyEnv(arguments_t *args);
@@ -164,5 +166,10 @@ void freeAlias(arguments_t *args);
 /* alias2.c module */
 char *aliasValue(char *wholeAl);
 void checkAlias(arguments_t *args);
+
+/* history.c module */
+ssize_t read_textfile(const char *filename, size_t letters);
+int create_file(const char *filename, char *text_content);
+int append_text_to_file(const char *filename, char *text_content);
 
 #endif /* __SHELL__ */
