@@ -70,10 +70,12 @@ int _bExit(arguments_t *args)
 		}
 		freeToks(args);
 		freeEnv(args);
+		freeAlias(args);
 		exit(exitN);
 	}
 	freeToks(args);
 	freeEnv(args);
+	freeAlias(args);
 	exit(xStatus);
 }
 
