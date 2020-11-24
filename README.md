@@ -33,13 +33,13 @@ Run `exit` or `ctrl + D`
 
 ## Commands featured in this simple_shell
 
-## Examples
-
 You can check the list of commands and builtins of this shell by running `$ man ./man_1_simple_shell`.
 
 To get the details of each available commands, run `ls /bin/` and to then `man COMMAND_NAME` to get more info about the command behaviour.
 
 To get the details of each builtin command, run `help BUILTIN_CMD`.
+
+## Examples
 
 **List directory contents:**
 
