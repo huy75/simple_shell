@@ -20,8 +20,8 @@
 #define PROMPT "> "
 #define PRSIZE _strlen(PROMPT)
 #define TOKENBUF 5
-#define HISTORY ".simple_shell_history"
-#define HISTSIZE 1024
+#define HISTORY "/home/vagrant/.simple_shell_history"
+#define HISTSIZE 4096
 
 /**
  * struct list_s - singly linked list
