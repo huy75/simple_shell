@@ -81,10 +81,11 @@ int _bCd(arguments_t *args)
 		chdir(new_pwd);
 		arrange_env(new_pwd, old_pwd, args);
 	}
-	else if (args->toks[1][0] == '-')
+	else if (_strcmp(args->toks[1], "-") == 0)
 	{
 		new_pwd = _getenvVAL("OLDPWD", args);
 		chdir(new_pwd);
+		_puts(new_pwd, 1);
 		arrange_env(new_pwd, old_pwd, args);
 	}
 	else
