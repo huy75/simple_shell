@@ -33,10 +33,21 @@ int scan_match(char *a, char *b)
 	char var2[100];
 	int i;
 
-	for (i = 0; a[i] != '='; i++)
-		var1[i] = a[i];
+	if (_strchr(a, '=') != NULL)
+	{
+		for (i = 0; a[i] != '='; i++)
+			var1[i] = a[i];
+		var1[i] = '\0';
+	}
+	else
+	{
+		for (i = 0; a[i] != '\0'; i++)
+			var1[i] = a[i];
+		var1[i] = '\0';
+	}
 	for (i = 0; b[i] != '='; i++)
 		var2[i] = b[i];
+	var2[i] = '\0';
 
 	if (_strcmp(var1, var2) == 0)
 		return (0);

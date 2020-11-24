@@ -161,4 +161,8 @@ void setup_alias(arguments_t *args);
 int scan_match(char *a, char *b);
 void freeAlias(arguments_t *args);
 
+/* alias2.c module */
+char *aliasValue(char *wholeAl);
+void checkAlias(arguments_t *args);
+
 #endif /* __SHELL__ */

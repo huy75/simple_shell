@@ -28,6 +28,7 @@ int main(int argc, char **argv, char **env)
 			continue;
 		arguments.lCnt++;
 		arguments.toks = parseBuffer(arguments.buf);
+		checkAlias(&arguments);
 		if (builtins(&arguments)) /* run built-in function */
 		{
 			if (runExec(&arguments)) /* exec in PATH */
