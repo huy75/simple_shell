@@ -26,13 +26,13 @@ char get_del(char *str, const char *delim)
 }
 
 /**
-  * _strtok - extract tokens from strings
+  * _strtok_r - extract tokens from strings
   * @str: string to be parsed
   * @delim: delimiter that separate each token
   * Return: a token, or NULL if no more
   */
 
-char *_strtok(char *str, const char *delim)
+char *_strtok_r(char *str, const char *delim)
 {
 	static char *tmp;
 	char *next;
@@ -61,6 +61,27 @@ char *_strtok(char *str, const char *delim)
 	{
 		token = tmp;
 		tmp = NULL;
+	}
+	return (token);
+}
+
+/**
+  * _strtok - gets tokens & makes sure they're not empty
+  * @str: string to be parsed
+  * @delim:  delimiter that separate each token
+  * Return: a token, or NULL if no more
+  */
+
+char *_strtok(char *str, const char *delim)
+{
+	char *token;
+
+	token = _strtok_r(str, delim);
+	while (token)
+	{
+		if (token[0] != '\0')
+			break;
+		token = _strtok_r(NULL, delim);
 	}
 	return (token);
 }
