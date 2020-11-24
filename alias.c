@@ -10,7 +10,6 @@ void print_alias(arguments_t *args)
 {
 	list_t *head = args->head_alias;
 
-	puts("in");
 	if (head == NULL)
 		return;
 	while (head)
@@ -107,17 +106,18 @@ void setup_alias(arguments_t *args)
 
 void freeAlias(arguments_t *args)
 {
-	list_t *ptr;
+	list_t *current = args->head_alias;
+	list_t *next;
 
 	if (!(args->head_alias))
 		return;
 
-	while (args->head_alias)
+	while (current != NULL)
 	{
-		ptr = args->head_alias;
-		args->head_alias = args->head_alias->next;
-		free(ptr->str);
-		free(ptr);
+		next = current->next;
+		free(current->str);
+		free(current);
+		current = next;
 	}
 	args->head_alias = NULL;
 }
