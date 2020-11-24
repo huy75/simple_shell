@@ -22,7 +22,7 @@ char *aliasValue(char *wholeAl)
 
 /**
   * checkAlias - checks if the command is an alias
-  * args: args
+  * @args: args
   * Return: void
   */
 
