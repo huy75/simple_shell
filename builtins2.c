@@ -20,7 +20,7 @@ int _bHelp(arguments_t *args)
 		_puts("env\nsetenv [name]\nunsetenv [name]\n", STDIN_FILENO);
 		_puts("exit [n]\n", STDIN_FILENO);
 		_puts("help [pattern...]\ncd [directory]\n", STDIN_FILENO);
-		_puts("history\n", STDIN_FILENO);
+		_puts("alias or alias name=\'value\'\n", STDIN_FILENO);
 		return (0);
 	}
 
@@ -37,8 +37,8 @@ int _bHelp(arguments_t *args)
 		helpHelp();
 	if (!_strcmp(bfc, "cd"))
 		helpCd();
-	if (!_strcmp(bfc, "history"))
-		helpHist();
+	if (!_strcmp(bfc, "alias"))
+		helpAlias();
 	return (0);
 }
 

@@ -50,6 +50,7 @@ the following built-in commands have been implemented:
    help [command] - displays help on [command]
    cd [directory] - changes to [directory]
    alias - prints a list of all aliases
+   alias [name]=[value] - defines or replaces an alias with the given value
 .SH EXAMPLES
 .sp
 .B $ ls -l /usr

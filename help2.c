@@ -22,4 +22,6 @@ void helpAlias(void)
 {
 	_puts("alias\n", STDIN_FILENO);
 	_puts("    - prints a list of all aliases\n", STDIN_FILENO);
+	_puts("alias [name]=[value]\n", STDIN_FILENO);
+        _puts("    - defines or replaces an alias for the given value\n", 1);
 }
