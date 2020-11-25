@@ -28,7 +28,10 @@ int main(int argc, char **argv, char **env)
 			continue;
 		wc = wordCount(arguments.buf);
 		if (wc == 0)
+		{
+			free(arguments.buf), arguments.buf = NULL;
 			continue;
+		}
 		arguments.lCnt++;
 		arguments.toks = parseBuffer(arguments.buf);
 		checkAlias(&arguments);
