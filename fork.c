@@ -9,7 +9,7 @@ int runExec(arguments_t *args)
 {
 	int status;
 	pid_t pid;
-	char *command = path2(args->toks[0], args);
+	char *command = path(args->toks[0], args->env);
 
 	if (command == NULL)
 		return (EXIT_FAILURE);
