@@ -12,7 +12,13 @@ A school project with the aim of writing a simple UNIX command interpreter. The 
 $ git clone https://github.com/huy75/simple_shell.git
 ```
 
-**2) Run it:**
+**2) Compile it:**
+
+```
+gcc -Wall -Werror -Wextra -pedantic *.c -o hsh
+```
+
+**3) Run it:**
 
 If you want to run it in your current environment:
 
@@ -27,7 +33,7 @@ $ sh
 $$ ./hsh
 ```
 
-**3) Quit it:**
+**4) Quit it:**
 
 Run `exit` or `ctrl + D`
 

@@ -43,6 +43,38 @@ char *_getenv(const char *name, char **env)
 		return (NULL);
 	return (result);
 }
+
+/**
+ * scan_path_vars - checks whether path contains a "::"
+ * before /bin/ or a ":" at path[0]
+ * @path: the entire path
+ * Return: 1 if any is true or 0 otherwise
+ */
+
+int scan_path_vars(char *path)
+{
+	char *binloc, *emptyloc;
+	int lenB, lenE, lenP;
+
+	if (path[0] == ':')
+		return (1);
+	if (path[0] == '/' && path[1] == 'b')
+		return (0);
+	lenP = _strlen(path);
+	if (path[lenP] == ':' || path[lenP - 1] == ':')
+		return (1);
+	binloc = _strstr(path, ":/bin");
+	emptyloc = _strstr(path, "::");
+	if (binloc != NULL && emptyloc != NULL)
+	{
+		lenB = _strlen(binloc);
+		lenE = _strlen(emptyloc);
+		if (lenE > lenB)
+			return (1);
+	}
+	return (0);
+}
+
 /**
  * path - get the correct path for exes
  * @av0: initial command
@@ -53,40 +85,41 @@ char *_getenv(const char *name, char **env)
 char *path(char *av0, char **env)
 {
 	struct stat st;
-	char *path, *token, *result, *delimiter = ":\n", *command, *dir;
-	char current_dir[100];
+	char *path;
+	char *token, *result;
+	char *delimiter = ":\n";
+	char *command;
 	int compare = _strcmp("/bin/", av0);
 
-	getcwd(current_dir, 100);
+	if (stat(av0, &st) == 0)
+	{
+		result = str_concat(av0, "");
+		return (result);
+	}
+	else
+		return (NULL);
 	if (compare == 0)
 	{
 		result = str_concat(av0, "");
 		return (result);
 	}
-	dir = malloc(sizeof(char) * 100);
+	command = str_concat("/", av0);
 	path = _getenv("PATH", env);
-	token = _strtok_r(path, delimiter);
+	if (scan_path_vars(path) == 1 && stat(av0, &st) == 0)
+		return (str_concat(av0, ""));
+	token = _strtok(path, delimiter);
 	while (token)
 	{
-		chdir(token);
-		if (stat(av0, &st) == 0 || token[0] == '\0')
-		{
-			getcwd(dir, sizeof(dir));
+		result = str_concat(token, command);
+		if (stat(result, &st) == 0)
 			break;
-		}
-		token = _strtok_r(NULL, delimiter);
+		free(result);
+		token = _strtok(NULL, delimiter);
 	}
+	free(command);
+	free(path);
+
 	if (token == NULL)
-	{
-		free(path), free(dir);
 		return (NULL);
-	}
-	command = str_concat("/", av0);
-	chdir(current_dir);
-	if (dir[0] == '\0' || token[0] == '\0')
-		result = str_concat(current_dir, command);
-	else
-		result = str_concat(dir, command);
-	free(command), free(dir), free(path);
 	return (result);
 }
