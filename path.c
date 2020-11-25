@@ -81,7 +81,10 @@ char *path(char *av0, char **env)
 		token = _strtok_r(NULL, delimiter);
 	}
 	if (token == NULL)
+	{
+		free(path), free(dir);
 		return (NULL);
+	}
 	command = str_concat("/", av0);
 	chdir(current_dir);
 	if (dir[0] == '\0' || token[0] == '\0')
