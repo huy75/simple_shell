@@ -53,21 +53,17 @@ char *_getenv(const char *name, char **env)
 char *path(char *av0, char **env)
 {
 	struct stat st;
-	char *path, *token, *result, *delimiter = ":\n", *command;
-	char *dir = malloc(sizeof(char) * 100), current_dir[100];
-	getcwd(current_dir, 100);
+	char *path, *token, *result, *delimiter = ":\n", *command, *dir;
+	char current_dir[100];
+	int compare = _strcmp("/bin/", av0);
 
-	if (!_strncmp(av0, "./", 2) || av0[0] == '/')
+	getcwd(current_dir, 100);
+	if (compare == 0)
 	{
-		free(dir);
-		if (stat(av0, &st) == 0)
-		{
-			result = str_concat(av0, "");
-			return (result);
-		}
-		else
-			return (NULL);
+		result = str_concat(av0, "");
+		return (result);
 	}
+	dir = malloc(sizeof(char) * 100);
 	path = _getenv("PATH", env);
 	token = _strtok_r(path, delimiter);
 	while (token)
