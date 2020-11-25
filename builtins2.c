@@ -68,7 +68,7 @@ void arrange_env(char *new_pwd, char *old_pwd, arguments_t *args)
 
 int _bCd(arguments_t *args)
 {
-	char old_pwd[120] {};
+	char old_pwd[120] = "";
 	char *new_pwd = NULL;
 
 
