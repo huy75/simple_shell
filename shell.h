@@ -87,7 +87,6 @@ char **parseBuffer(char *buffer);
 /* path.c module */
 char *_getenv(const char *name, char **env);
 char *path(char *av0, char **env);
-int scan_path_vars(char *path);
 
 /* fork.c module */
 int runExec(arguments_t *args);
@@ -104,6 +103,7 @@ ssize_t _getline(char **lineptr, size_t *n, FILE *stream);
 /* _strtok.c module */
 char get_del(char *str, const char *delim);
 char *_strtok(char *str, const char *delim);
+char *_strtok_r(char *str, const char *delim);
 
 /* strings.c module */
 int _putchar(char c, int fd);
