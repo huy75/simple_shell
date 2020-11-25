@@ -8,8 +8,8 @@
 
 int _bHelp(arguments_t *args)
 {
-	char **arg;
-	char *bfc;
+	char **arg = NULL;
+	char *bfc = NULL;
 
 	arg = args->toks;
 	if (!(arg[1]))
@@ -68,8 +68,8 @@ void arrange_env(char *new_pwd, char *old_pwd, arguments_t *args)
 
 int _bCd(arguments_t *args)
 {
-	char old_pwd[120];
-	char *new_pwd;
+	char old_pwd[120] = "";
+	char *new_pwd = NULL;
 
 
 	(void)args;

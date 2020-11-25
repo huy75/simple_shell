@@ -30,7 +30,7 @@ char *_memcpy(char *dest, char *src, unsigned int n)
 
 void *_realloc(void *ptr, unsigned int old_size, unsigned int new_size)
 {
-	char *nptr;
+	char *nptr = NULL;
 
 	if (new_size == old_size)
 		return (ptr);

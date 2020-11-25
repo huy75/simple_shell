@@ -87,7 +87,7 @@ int _bExit(arguments_t *args)
 int _bSEnv(arguments_t *args)
 {
 	char *buf = NULL;
-	list_t *envv;
+	list_t *envv = NULL;
 
 	if (!(args->toks[1]) || !(args->toks[2]))
 	{

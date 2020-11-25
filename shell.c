@@ -46,8 +46,7 @@ int main(int argc, char **argv, char **env)
 		free(arguments.buf), arguments.buf = NULL;
 		free(arguments.toks), arguments.toks = NULL;
 	}
-	free(arguments.buf);
-	arguments.buf = NULL;
+	free(arguments.buf), arguments.buf = NULL;
 	freeToks(&arguments), freeEnv(&arguments), freeAlias(&arguments);
 	return (0);
 }

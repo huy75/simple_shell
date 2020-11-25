@@ -26,7 +26,7 @@ list_t *cpyEnv(arguments_t *args)
  */
 list_t *add_node_end(list_t **head, char *str)
 {
-	list_t *newTail;
+	list_t *newTail = NULL;
 	list_t *ptr = *head;
 
 	if (!head || !str)
@@ -85,7 +85,7 @@ list_t *_getenvLL(char *name, arguments_t *args)
 int delete_node_at_index(list_t **head, unsigned int index)
 {
 	unsigned int idx = 0;
-	list_t *node;
+	list_t *node = NULL;
 	list_t *ptr = *head;
 
 	if (!head || !*head)
@@ -121,7 +121,7 @@ int delete_node_at_index(list_t **head, unsigned int index)
  */
 void freeEnv(arguments_t *args)
 {
-	list_t *ptr;
+	list_t *ptr = NULL;
 
 	if (!(args->head))
 		return;

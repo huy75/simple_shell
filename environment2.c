@@ -10,7 +10,7 @@
 char *_getenvVAL(char *var, arguments_t *args)
 {
 	char *wholeV = (_getenvLL(var, args))->str;
-	char *token;
+	char *token = NULL;
 	char *del = "=";
 
 	if (wholeV == NULL)
