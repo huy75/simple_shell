@@ -27,18 +27,21 @@ char *path2(char *av0, arguments_t *args)
 	{
 		if (_strcmp(token, av0) == 0 && stat(av0, &st) == 0)
 		{
-			result = str_concat(av0, "");
+			result = str_concat(av0, ""), free(command);
 			break;
 		}
 		if (stat(av0, &st) == 0 && _strcmp(token, "") == 0)
 		{
-			result = str_concat(av0, "");
+			result = str_concat(av0, ""), free(command);
 			break;
 		}
 		command = str_concat("/", av0);
 		result = str_concat(token, command);
 		if (stat(result, &st) == 0)
+		{
+			free(command);
 			break;
+		}
 		free(result), free(command);
 		token = _strtok_r(NULL, delimiter);
 	}
