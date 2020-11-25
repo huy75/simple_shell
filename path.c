@@ -91,6 +91,13 @@ char *path(char *av0, char **env)
 	char *command;
 	int compare = _strcmp("/bin/", av0);
 
+	if (stat(av0, &st) == 0)
+	{
+		result = str_concat(av0, "");
+		return (result);
+	}
+	else
+		return (NULL);
 	if (compare == 0)
 	{
 		result = str_concat(av0, "");
