@@ -79,6 +79,7 @@ int main(int argc, char **argv, char **env);
 void initStruct(arguments_t *args, int argc, char **argv, char **env);
 void sigintH(int signum);
 void freeToks(arguments_t *args);
+int wordCount(char *str);
 
 /* parse.c module */
 char **parseBuffer(char *buffer);

@@ -10,6 +10,7 @@
 int main(int argc, char **argv, char **env)
 {
 	arguments_t arguments;
+	int wc = 0;
 	size_t size = 0;
 
 	initStruct(&arguments, argc, argv, env);
@@ -17,7 +18,6 @@ int main(int argc, char **argv, char **env)
 	{
 		if (isatty(STDIN_FILENO) == 1) /* if terminal */
 			_puts(PROMPT, STDOUT_FILENO);
-
 		signal(SIGINT, sigintH); /* ignore Ctrl + C */
 
 		if (_getline(&(arguments.buf), &size, stdin) == -1)
@@ -25,6 +25,9 @@ int main(int argc, char **argv, char **env)
 		if (arguments.buf[0] == EOF) /* Ctrl + D */
 			break;
 		if (!_strcmp(arguments.buf, "\n")) /* empty command line */
+			continue;
+		wc = wordCount(arguments.buf);
+		if (wc == 0)
 			continue;
 		arguments.lCnt++;
 		arguments.toks = parseBuffer(arguments.buf);
@@ -95,4 +98,26 @@ void freeToks(arguments_t *args)
 		free(*args->toks);
 	free(args->toks);
 	args->toks = NULL;
+}
+
+/**
+ * wordCount - counts the number of words within a string.
+ * @str: the input string.
+ * Return: the number of words.
+ */
+
+int wordCount(char *str)
+{
+	int flag = 0, wc = 0;
+	int idx;
+
+	for (idx = 0; str[idx]; idx++)
+		if (str[idx] == ' ')
+			flag = 0;
+		else if (flag == 0)
+		{
+			flag = 1;
+			wc++;
+		}
+	return (wc);
 }
