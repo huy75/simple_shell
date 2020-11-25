@@ -54,7 +54,7 @@ int _strncmp(const char *s1, const char *s2, size_t n)
 
 char *_strstr(char *haystack, char *needle)
 {
-	char *a, *b;
+	char *a = NULL, *b = NULL;
 
 	b = needle;
 
