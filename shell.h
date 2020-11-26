@@ -45,7 +45,6 @@ typedef struct list_s
  * @head_alias: first node for alias
  * @head: first node
  * @index: to delete node
- * @fd: file desriptor history
  * @exitS: exit status
  */
 typedef struct arguments
@@ -59,7 +58,6 @@ typedef struct arguments
 	list_t *head_alias;
 	list_t *head;
 	int index;
-	int fd;
 	int exitS;
 } arguments_t;
 
@@ -87,8 +85,8 @@ char **parseBuffer(char *buffer);
 /* path.c module */
 char *_getenv(const char *name, char **env);
 char *path(char *av0, char **env);
-
 char *path2(char *av0, arguments_t *args);
+int scan_path_vars(char *path);
 
 /* fork.c module */
 int runExec(arguments_t *args);
@@ -104,8 +102,8 @@ ssize_t _getline(char **lineptr, size_t *n, FILE *stream);
 
 /* _strtok.c module */
 char get_del(char *str, const char *delim);
-char *_strtok(char *str, const char *delim);
 char *_strtok_r(char *str, const char *delim);
+char *_strtok(char *str, const char *delim);
 
 /* strings.c module */
 int _putchar(char c, int fd);
@@ -137,6 +135,7 @@ int _bHelp(arguments_t *args);
 void arrange_env(char *new_pwd, char *old_pwd, arguments_t *args);
 int _bCd(arguments_t *args);
 int _bAlias(arguments_t *args);
+int _bHist(arguments_t *args);
 
 /* help.c module */
 void helpEnv(void);
@@ -148,6 +147,7 @@ void helpExit(void);
 /* help2.c module */
 void helpCd(void);
 void helpAlias(void);
+void helpHist(void);
 
 /* environment.c module */
 list_t *cpyEnv(arguments_t *args);
@@ -171,8 +171,7 @@ char *aliasValue(char *wholeAl);
 void checkAlias(arguments_t *args);
 
 /* history.c module */
-ssize_t read_textfile(const char *filename, size_t letters);
-int create_file(const char *filename, char *text_content);
-int append_text_to_file(const char *filename, char *text_content);
+int createHist(arguments_t *args);
+int writeHist(arguments_t *args);
 
 #endif /* __SHELL__ */

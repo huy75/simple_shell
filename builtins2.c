@@ -16,11 +16,12 @@ int _bHelp(arguments_t *args)
 	{
 		_puts("Please type 'help function' ", STDIN_FILENO);
 		_puts("to find out more about the built-in ", STDIN_FILENO);
-		_puts("functions:\n\n", STDIN_FILENO);
+		_puts("functions:\n", STDIN_FILENO);
 		_puts("env\nsetenv [name]\nunsetenv [name]\n", STDIN_FILENO);
 		_puts("exit [n]\n", STDIN_FILENO);
 		_puts("help [pattern...]\ncd [directory]\n", STDIN_FILENO);
 		_puts("alias or alias name=\'value\'\n", STDIN_FILENO);
+		_puts("history\n", STDIN_FILENO);
 		return (0);
 	}
 
@@ -39,6 +40,8 @@ int _bHelp(arguments_t *args)
 		helpCd();
 	if (!_strcmp(bfc, "alias"))
 		helpAlias();
+	if (!_strcmp(bfc, "history"))
+		helpHist();
 	return (0);
 }
 
@@ -118,4 +121,49 @@ int _bAlias(arguments_t *args)
 		setup_alias(args);
 	}
 	return (EXIT_SUCCESS);
+}
+
+/**
+ * _bHist - about history builtin command
+ * @args: arguments structure
+ * Return: 0
+ */
+
+int _bHist(arguments_t *args)
+{
+	char *envH = NULL, *fileN = NULL, *line = NULL;
+	char buf[HISTSIZE] = {0};
+	int fd, lCnt = 0;
+	ssize_t bytes;
+
+	envH = _getenv("HOME", args->env);
+
+	fileN = malloc(_strlen(envH) + _strlen(HISTORY) + 2);
+	if (!fileN)
+		return (EXIT_FAILURE);
+
+	_strcpy(fileN, envH), _strcat(fileN, "/"), _strcat(fileN, HISTORY);
+
+	fd = open(fileN, O_RDONLY);
+	if (fd == -1)
+		return (0);
+
+	bytes = read(fd, buf, HISTSIZE);
+	if (bytes == -1)
+		return (0);
+	buf[bytes + 1] = '\0';
+
+	line = _strtok(buf, "\n");
+	while (line != NULL)
+	{
+		print_number(lCnt);
+		_puts(" ", STDOUT_FILENO);
+		_puts(line, STDOUT_FILENO);
+		_puts("\n", STDOUT_FILENO);
+		lCnt++;
+		line = _strtok(NULL, "\n");
+	}
+	free(fileN);
+	close(fd);
+	return (0);
 }

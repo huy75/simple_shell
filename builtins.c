@@ -16,6 +16,7 @@ int builtins(arguments_t *args)
 		{"help", _bHelp},
 		{"cd", _bCd},
 		{"alias", _bAlias},
+		{"history", _bHist},
 		{NULL, NULL}
 	};
 

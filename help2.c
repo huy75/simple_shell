@@ -25,3 +25,14 @@ void helpAlias(void)
 	_puts("alias [name]=[value]\n", STDIN_FILENO);
 	_puts("    - defines or replaces an alias for the given value\n", 1);
 }
+
+/**
+ * helpHist - prints help info for history built-in
+ * Return: void
+ */
+void helpHist(void)
+{
+	_puts("history\n", STDIN_FILENO);
+	_puts("    - prints the history list, one command by line, ", 1);
+	_puts("preceded with line numbers (starting at 0).\n", STDIN_FILENO);
+}

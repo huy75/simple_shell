@@ -1,96 +1,63 @@
 #include "shell.h"
 
 /**
- * read_textfile - reads a text file and prints it to the POSIX standard output
- * @filename: the file to read from
- * @letters: the number of letters to read from file
- * Return: the actual number of letters or 0 if failed
+ * createHist - creates a history file.
+ * @args: arguments
+ * Return: EXIT
  */
-ssize_t read_textfile(const char *filename, size_t letters)
+int createHist(arguments_t *args)
 {
-	char *buf = NULL;
+	char *envH = NULL, *fileN = NULL;
 	int fd;
-	ssize_t bytes;
+	struct stat st;
 
-	if (!filename || !letters)
-		return (0);
+	envH = _getenv("HOME", args->env);
 
-	buf = malloc(letters + 1);
-	if (!buf)
-		return (0);
+	fileN = malloc(_strlen(envH) + _strlen(HISTORY) + 2);
+	if (!fileN)
+		return (EXIT_FAILURE);
 
-	fd = open(filename, O_RDONLY);
-	if (fd == -1)
-		return (free(buf), 0);
-
-	bytes = read(fd, buf, letters);
-	if (bytes == -1)
-		return (free(buf), 0);
-
-	buf[letters] = '\0';
-	bytes = write(STDOUT_FILENO, buf, bytes);
-	if (bytes == -1)
-		return (free(buf), 0);
-
-	free(buf);
-	close(fd);
-	return (bytes);
+	_strcpy(fileN, envH), _strcat(fileN, "/"), _strcat(fileN, HISTORY);
+	if (stat(fileN, &st) != 0)
+	{
+		fd = open(fileN, O_RDWR | O_CREAT | O_TRUNC, 0600);
+		if (fd == -1)
+			return (EXIT_FAILURE);
+		close(fd);
+	}
+	free(fileN);
+	return (EXIT_SUCCESS);
 }
 
-/**
- * create_file - creates a file.
- * @filename: the name of the file to create
- * @text_content: a NULL terminated string to write to the file
- * Return: 1 on success, -1 on failure
- */
-int create_file(const char *filename, char *text_content)
-{
-	int bytes, fd;
-	mode_t modes;
-
-	modes = S_IRUSR | S_IWUSR;
-	if (!filename)
-		return (-1);
-
-	fd = open(filename, O_RDWR | O_CREAT | O_APPEND, modes);
-	if (fd == -1)
-		return (-1);
-
-	if (text_content)
-	{
-		bytes = write(fd, text_content, strlen(text_content));
-		if (bytes == -1)
-			return (-1);
-	}
-
-	close(fd);
-	return (1);
-}
 
 /**
- * append_text_to_file - appends text at the end of a file.
- * @filename: the name of the file
- * @text_content: the NULL terminated string to add at the end of the file
- * Return: 1 on success and -1 on failure
+ * writeHist - writes input command to history file
+ * @args: arguments structure
+ * Return: int.
  */
-int append_text_to_file(const char *filename, char *text_content)
+int writeHist(arguments_t *args)
 {
+	char *envH = NULL, *fileN = NULL;
 	int bytes, fd;
 
-	if (!filename)
-		return (-1);
+	envH = _getenv("HOME", args->env);
 
-	fd = open(filename, O_WRONLY | O_APPEND);
+	fileN = malloc(_strlen(envH) + _strlen(HISTORY) + 2);
+	if (!fileN)
+		return (EXIT_FAILURE);
+
+	_strcpy(fileN, envH), _strcat(fileN, "/"), _strcat(fileN, HISTORY);
+	fd = open(fileN, O_WRONLY | O_APPEND);
 	if (fd == -1)
-		return (-1);
-
-	if (text_content)
 	{
-		bytes = write(fd, text_content, strlen(text_content));
-		if (bytes == -1)
-			return (-1);
+		free(fileN);
+		return (EXIT_FAILURE);
 	}
-
+	bytes = write(fd, args->buf, _strlen(args->buf));
+	if (bytes == -1)
+		return (EXIT_FAILURE);
+	write(fd, "\n", 1);
+	free(fileN);
 	close(fd);
-	return (1);
+	return (EXIT_SUCCESS);
 }

@@ -19,7 +19,6 @@ int main(int argc, char **argv, char **env)
 		if (isatty(STDIN_FILENO) == 1) /* if terminal */
 			_puts(PROMPT, STDOUT_FILENO);
 		signal(SIGINT, sigintH); /* ignore Ctrl + C */
-
 		if (_getline(&(arguments.buf), &size, stdin) == -1)
 			break;
 		if (arguments.buf[0] == EOF) /* Ctrl + D */
@@ -33,6 +32,7 @@ int main(int argc, char **argv, char **env)
 			continue;
 		}
 		arguments.lCnt++;
+		writeHist(&arguments);
 		arguments.toks = parseBuffer(arguments.buf);
 		checkAlias(&arguments);
 		if (builtins(&arguments)) /* run built-in function */
@@ -72,6 +72,7 @@ void initStruct(arguments_t *args, int argc, char **argv, char **env)
 		args->head = cpyEnv(args);
 		args->index = 0;
 		args->exitS = 0;
+		createHist(args);
 	}
 }
 

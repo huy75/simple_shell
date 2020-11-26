@@ -51,6 +51,7 @@ the following built-in commands have been implemented:
    cd [directory] - changes to [directory]
    alias - prints a list of all aliases
    alias [name]=[value] - defines or replaces an alias with the given value
+   history - displays the history list
 .SH EXAMPLES
 .sp
 .B $ ls -l /usr
@@ -88,7 +89,6 @@ The following features are currently in progress
     ; - Command separator for command chaining
     # - Comment indicator
     && and || operators
-    history
     taking a file as input
 .SH AUTHOR
 Yago Martinez-Falero Hein (yagomfh@gmail.com), Huy Nguyen (huy.nguyen@holbertonschool.com), Cohort 13.
