@@ -88,7 +88,7 @@ char **parseBuffer(char *buffer);
 char *_getenv(const char *name, char **env);
 char *path(char *av0, char **env);
 
-char *path2 (char *av0, arguments_t *args);
+char *path2(char *av0, arguments_t *args);
 
 /* fork.c module */
 int runExec(arguments_t *args);
