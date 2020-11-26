@@ -159,6 +159,7 @@ void freeEnv(arguments_t *args);
 
 /* environment2.c module */
 char *_getenvVAL(char *var, arguments_t *args);
+char *_getenvLL2(char *name, arguments_t *args);
 
 /* alias.c module */
 void print_alias(arguments_t *args);

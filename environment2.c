@@ -21,3 +21,24 @@ char *_getenvVAL(char *var, arguments_t *args)
 	token = wholeV + i;
 	return (token);
 }
+
+/**
+ * _getenvLL2 - gets an env variable from a name
+ * @name: char * to search for
+ * @args: args
+ * Return: a string or NULL if found nothing
+ */
+char *_getenvLL2(char *name, arguments_t *args)
+{
+	list_t *head = args->head;
+
+	while (head)
+	{
+		if (!_strcmp(name, head->str))
+		{
+			return (head->str);
+		}
+		head = head->next;
+	}
+	return (NULL);
+}

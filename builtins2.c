@@ -80,7 +80,9 @@ int _bCd(arguments_t *args)
 	getcwd(old_pwd, 120);
 	if (args->toks[1] == NULL)
 	{
-		new_pwd = _getenvVAL("HOME", args);
+		new_pwd = _getenvLL2("HOME", args);
+		if (new_pwd == NULL)
+			return (0);
 		chdir(new_pwd);
 		arrange_env(new_pwd, old_pwd, args);
 	}
