@@ -22,7 +22,8 @@ char *path2(char *av0, arguments_t *args)
 			return (NULL);
 	}
 	pathcopy = _getenvVAL("PATH", args);
-	token = _strtok_r(str_concat(pathcopy, ""), delimiter);
+	path = str_concat(pathcopy, "");
+	token = _strtok_r(path, delimiter);
 	while (token)
 	{
 		if (_strcmp(token, av0) == 0 && stat(av0, &st) == 0)
@@ -41,8 +42,7 @@ char *path2(char *av0, arguments_t *args)
 			free(command);
 			break;
 		}
-		free(result), free(command);
-		token = _strtok_r(NULL, delimiter);
+		free(result), free(command), token = _strtok_r(NULL, delimiter);
 	}
 	free(path);
 	if (token == NULL)

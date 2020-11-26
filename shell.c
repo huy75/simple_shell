@@ -72,7 +72,7 @@ void initStruct(arguments_t *args, int argc, char **argv, char **env)
 		args->head = cpyEnv(args);
 		args->index = 0;
 		args->exitS = 0;
-		createHist(args);
+/*		createHist(args); */
 	}
 }
 
