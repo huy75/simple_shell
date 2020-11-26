@@ -137,20 +137,25 @@ int _bHist(arguments_t *args)
 	ssize_t bytes;
 
 	envH = _getenv("HOME", args->env);
-
 	fileN = malloc(_strlen(envH) + _strlen(HISTORY) + 2);
 	if (!fileN)
-		return (EXIT_FAILURE);
+		return (free(envH), EXIT_FAILURE);
 
 	_strcpy(fileN, envH), _strcat(fileN, "/"), _strcat(fileN, HISTORY);
 
 	fd = open(fileN, O_RDONLY);
 	if (fd == -1)
+	{
+		free(envH), free(fileN);
 		return (0);
-
+	}
 	bytes = read(fd, buf, HISTSIZE);
 	if (bytes == -1)
+	{
+		free(envH), free(fileN);
+		close(fd);
 		return (0);
+	}
 	buf[bytes + 1] = '\0';
 
 	line = _strtok(buf, "\n");
@@ -163,7 +168,6 @@ int _bHist(arguments_t *args)
 		lCnt++;
 		line = _strtok(NULL, "\n");
 	}
-	free(fileN);
-	close(fd);
+	free(envH), free(fileN), close(fd);
 	return (0);
 }
