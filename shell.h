@@ -22,6 +22,7 @@
 #define TOKENBUF 5
 #define HISTORY ".simple_shell_history"
 #define HISTSIZE 4096
+#define EXITERR 100
 
 /**
  * struct list_s - singly linked list

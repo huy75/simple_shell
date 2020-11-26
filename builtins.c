@@ -65,7 +65,7 @@ int _bExit(arguments_t *args)
 		exitN = _atoi(args->toks[1]);
 		if (exitN <= 0) /* invalid number */
 		{
-			errno = EBADRQC;
+			errno = EXITERR;
 			printErr(args);
 			return (0);
 		}

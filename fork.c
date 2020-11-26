@@ -62,7 +62,7 @@ void printErr(arguments_t *args)
 		_puts(": not found\n", STDERR_FILENO);
 		args->exitS = 127;
 		break;
-	case EBADRQC:
+	case EXITERR:
 		_puts(args->toks[0], STDERR_FILENO);
 		_puts(": Illegal number: ", STDERR_FILENO);
 		_puts(args->toks[1], STDERR_FILENO);
@@ -71,7 +71,7 @@ void printErr(arguments_t *args)
 		break;
 	case EINVAL:
 		_puts(args->toks[0], STDERR_FILENO);
-		_puts(": Invalid argument(s)\n", STDERR_FILENO);
+		_puts(": invalid argument(s)\n", STDERR_FILENO);
 		args->exitS = 2;
 		break;
 	case ENOTDIR:
@@ -79,7 +79,7 @@ void printErr(arguments_t *args)
 		_puts(": can't cd to ", STDERR_FILENO);
 		_puts(args->toks[1], STDERR_FILENO);
 		_putchar('\n', STDERR_FILENO);
-		args->exitS = 67;
+		args->exitS = 2;
 		break;
 	}
 }
