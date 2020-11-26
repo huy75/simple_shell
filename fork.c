@@ -67,7 +67,7 @@ void printErr(arguments_t *args)
 		_puts(": Illegal number: ", STDERR_FILENO);
 		_puts(args->toks[1], STDERR_FILENO);
 		_puts("\n", STDERR_FILENO);
-		args->exitS = 128;
+		args->exitS = 2;
 		break;
 	case EINVAL:
 		_puts(args->toks[0], STDERR_FILENO);
