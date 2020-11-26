@@ -11,11 +11,13 @@ char *_getenvVAL(char *var, arguments_t *args)
 {
 	char *wholeV = (_getenvLL(var, args))->str;
 	char *token = NULL;
-	char *del = "=";
+	int i = 0;
 
 	if (wholeV == NULL)
 		return (NULL);
-	token = _strtok(wholeV, del);
-	token = _strtok(NULL, del);
+	while (wholeV[i] != '=')
+		i++;
+	i++;
+	token = wholeV + i;
 	return (token);
 }

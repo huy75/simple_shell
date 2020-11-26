@@ -35,10 +35,10 @@ char get_del(char *str, const char *delim)
 char *_strtok_r(char *str, const char *delim)
 {
 	static char *tmp;
-	char *next;
-	unsigned int dif;
-	char *token;
-	char cdel;
+	char *next = NULL;
+	unsigned int dif = 0;
+	char *token = NULL;
+	char cdel = '\0';
 
 	if (str != NULL)
 		tmp = str;
@@ -51,7 +51,8 @@ char *_strtok_r(char *str, const char *delim)
 	next = _strchr(tmp, cdel);
 	if (next != NULL)
 	{
-		dif = _strlen(tmp) - _strlen(next);
+		dif = _strlen(tmp);
+		dif -= _strlen(next);
 		token = tmp;
 		next++;
 		tmp = next;

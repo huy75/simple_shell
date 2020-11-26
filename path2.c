@@ -10,8 +10,9 @@
 char *path2(char *av0, arguments_t *args)
 {
 	struct stat st;
-	char *path, *command, *token, *result;
+	char *path = NULL, *command = NULL, *token = NULL, *result = NULL;
 	char *delimiter = ":\n";
+	char *pathcopy = NULL;
 
 	if (_strcmp("./", av0) == 0)
 	{
@@ -20,23 +21,21 @@ char *path2(char *av0, arguments_t *args)
 		else
 			return (NULL);
 	}
-
-	path = _getenv("PATH", args->env);
-	token = _strtok_r(path, delimiter);
+	pathcopy = _getenvVAL("PATH", args);
+	token = _strtok_r(str_concat(pathcopy, ""), delimiter);
 	while (token)
 	{
 		if (_strcmp(token, av0) == 0 && stat(av0, &st) == 0)
 		{
-			result = str_concat(av0, ""), free(command);
+			result = str_concat(av0, "");
 			break;
 		}
 		if (stat(av0, &st) == 0 && _strcmp(token, "") == 0)
 		{
-			result = str_concat(av0, ""), free(command);
+			result = str_concat(av0, "");
 			break;
 		}
-		command = str_concat("/", av0);
-		result = str_concat(token, command);
+		command = str_concat("/", av0), result = str_concat(token, command);
 		if (stat(result, &st) == 0)
 		{
 			free(command);

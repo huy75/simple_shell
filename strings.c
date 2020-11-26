@@ -37,6 +37,8 @@ unsigned int _strlen(const char *s)
 {
 	unsigned int result = 0;
 
+	if (s == NULL)
+		return (0);
 	while (*s != '\0')
 	{
 		result++;

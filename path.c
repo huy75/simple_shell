@@ -11,7 +11,7 @@ char *_getenv(const char *name, char **env)
 {
 	char **environ = env;
 	unsigned int size, a, j, i = 0;
-	char *result;
+	char *result = NULL;
 
 	while (environ[i] != NULL)
 	{

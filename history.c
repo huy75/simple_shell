@@ -11,7 +11,7 @@ int createHist(arguments_t *args)
 	int fd;
 	struct stat st;
 
-	envH = _getenv("HOME", args->env);
+	envH = _getenvVAL("HOME", args);
 
 	fileN = malloc(_strlen(envH) + _strlen(HISTORY) + 2);
 	if (!fileN)
