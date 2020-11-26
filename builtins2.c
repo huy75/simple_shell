@@ -90,7 +90,11 @@ int _bCd(arguments_t *args)
 	{
 		new_pwd = _getenvLL2("OLDPWD", args);
 		if (new_pwd == NULL)
-                        return (0);
+		{
+			_puts(old_pwd, 1);
+			_putchar('\n', 1);
+			return (0);
+		}
 		chdir(new_pwd);
 		_puts(new_pwd, 1);
 		arrange_env(new_pwd, old_pwd, args);
