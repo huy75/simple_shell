@@ -88,7 +88,9 @@ int _bCd(arguments_t *args)
 	}
 	else if (_strcmp(args->toks[1], "-") == 0)
 	{
-		new_pwd = _getenvVAL("OLDPWD", args);
+		new_pwd = _getenvLL2("OLDPWD", args);
+		if (new_pwd == NULL)
+                        return (0);
 		chdir(new_pwd);
 		_puts(new_pwd, 1);
 		arrange_env(new_pwd, old_pwd, args);
