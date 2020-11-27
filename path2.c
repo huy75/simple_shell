@@ -22,11 +22,10 @@ char *path2(char *av0, arguments_t *args)
 		else
 			return (NULL);
 	}
-	pathcopy = _getenvVAL("PATH", args);
+	pathcopy = _getenvLL2("PATH", args);
 	if (pathcopy == NULL)
 	{
 		errno = ENOENT;
-		printErr(args);
 		return (NULL);
 	}
 	path = str_concat(pathcopy, ""), token = _strtok_r(path, delimiter);
