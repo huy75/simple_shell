@@ -36,7 +36,7 @@ char *_getenvLL2(char *name, arguments_t *args)
 
 	while (head)
 	{
-		if (!_strcmp(name, head->str))
+		if (!_strncmp(name, head->str, _strlen(name)))
 		{
 			sub = _strchr2(head->str, '=');
 			return (sub);
