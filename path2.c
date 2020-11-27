@@ -12,9 +12,10 @@ char *path2(char *av0, arguments_t *args)
 	struct stat st;
 	char *path = NULL, *command = NULL, *token = NULL, *result = NULL;
 	char *delimiter = ":\n";
+	int check_bin = _strcmp("/bin/", av0);
 	char *pathcopy = NULL;
 
-	if (_strcmp("./", av0) == 0)
+	if (_strcmp("./", av0) == 0 || _strcmp("../", av0) == 0 || check_bin == 0)
 	{
 		if (stat(av0, &st) == 0)
 			return (str_concat(av0, ""));
@@ -22,8 +23,7 @@ char *path2(char *av0, arguments_t *args)
 			return (NULL);
 	}
 	pathcopy = _getenvVAL("PATH", args);
-	path = str_concat(pathcopy, "");
-	token = _strtok_r(path, delimiter);
+	path = str_concat(pathcopy, ""), token = _strtok_r(path, delimiter);
 	while (token)
 	{
 		if (_strcmp(token, av0) == 0 && stat(av0, &st) == 0)
