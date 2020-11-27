@@ -39,8 +39,6 @@ ssize_t _getline(char **lineptr, size_t *n, FILE *stream)
 	*lineptr = malloc(sizeof(char) * 1);
 	while ((re = read(STDIN_FILENO, &tmp, 1)) > 0)
 	{
-		if ((tmp == ' ') && (isatty(STDIN_FILENO) != 1))
-			continue;
 		if (tmp == '\n')
 			*(*lineptr + i) = '\0';
 		else
