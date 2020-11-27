@@ -32,7 +32,7 @@ int main(int argc, char **argv, char **env)
 			continue;
 		}
 		arguments.lCnt++;
-/*		writeHist(&arguments); */
+/*              writeHist(&arguments); */
 		arguments.toks = parseBuffer(arguments.buf);
 /*		checkAlias(&arguments); */
 		if (builtins(&arguments)) /* run built-in function */

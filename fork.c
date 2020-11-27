@@ -72,7 +72,7 @@ void printErr(arguments_t *args)
 	case EINVAL:
 		_puts(args->toks[0], STDERR_FILENO);
 		_puts(": invalid argument(s)\n", STDERR_FILENO);
-		args->exitS = 2;
+		args->exitS = 0;
 		break;
 	case ENOTDIR:
 		_puts(args->toks[0], STDERR_FILENO);
