@@ -119,13 +119,19 @@ int _bCd(arguments_t *args)
 
 int _bAlias(arguments_t *args)
 {
+	int i;
+
 	if (args->toks[1] == NULL)
 	{
 		print_alias(args);
 	}
-	if (args->toks[1] != NULL)
+
+	for (i = 1; args->toks[i]; i++)
 	{
-		setup_alias(args);
+		if (_strchr(args->toks[i], '=') != NULL)
+			setup_alias(args, args->toks[i]);
+		else
+			print_uniq_alias(args, args->toks[i]);
 	}
 	return (EXIT_SUCCESS);
 }

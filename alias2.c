@@ -49,3 +49,31 @@ void checkAlias(arguments_t *args)
 		i++;
 	}
 }
+
+void print_uniq_alias(arguments_t *args, char *alias)
+{
+	list_t *head = args->head_alias;
+	char *str;
+	int i;
+
+	if (head == NULL)
+		return;
+	while (head)
+	{
+		str = head->str;
+		if (_strcmp(alias, str) == 0)
+		{
+			i = 0;
+			while (str[i])
+			{
+				_putchar(str[i], 1);
+				if (str[i] == '=')
+					_putchar(39, 1);
+				i++;
+			}
+			_putchar(39, 1);
+			_puts("\n", 1);
+		}
+		head = head->next;
+	}
+}

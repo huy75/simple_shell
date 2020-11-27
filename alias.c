@@ -87,22 +87,23 @@ list_t *get_alias(char *comp, arguments_t *args)
   * setup_alias - setup an alias
   * or overwrites it if it exists
   * @args: args
+  * @alias: alias to setup
   * Return: void
   */
 
-void setup_alias(arguments_t *args)
+void setup_alias(arguments_t *args, char *alias)
 {
 	list_t *head;
 
-	head = get_alias(args->toks[1], args);
+	head = get_alias(alias, args);
 	if (head == NULL)
 	{
-		add_node_end(&(args->head_alias), args->toks[1]);
+		add_node_end(&(args->head_alias), alias);
 	}
 	else
 	{
 		free(head->str);
-		head->str = _strdup(args->toks[1]);
+		head->str = _strdup(alias);
 		if (!head->str)
 		{
 			free(head);

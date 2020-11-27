@@ -19,7 +19,7 @@
 #define DELIMITERS " \t\r\n\v\f"
 #define PROMPT "$ "
 #define PRSIZE _strlen(PROMPT)
-#define TOKENBUF 5
+#define TOKENBUF 10
 #define HISTORY ".simple_shell_history"
 #define HISTSIZE 4096
 #define EXITERR 100
@@ -165,13 +165,14 @@ char *_getenvLL2(char *name, arguments_t *args);
 /* alias.c module */
 void print_alias(arguments_t *args);
 list_t *get_alias(char *comp, arguments_t *args);
-void setup_alias(arguments_t *args);
+void setup_alias(arguments_t *args, char *alias);
 int scan_match(char *a, char *b, arguments_t *args);
 void freeAlias(arguments_t *args);
 
 /* alias2.c module */
 char *aliasValue(char *wholeAl);
 void checkAlias(arguments_t *args);
+void print_uniq_alias(arguments_t *args, char *alias);
 
 /* history.c module */
 int createHist(arguments_t *args);
