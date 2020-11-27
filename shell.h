@@ -166,7 +166,7 @@ char *_getenvLL2(char *name, arguments_t *args);
 void print_alias(arguments_t *args);
 list_t *get_alias(char *comp, arguments_t *args);
 void setup_alias(arguments_t *args);
-int scan_match(char *a, char *b);
+int scan_match(char *a, char *b, arguments_t *args);
 void freeAlias(arguments_t *args);
 
 /* alias2.c module */

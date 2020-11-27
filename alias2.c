@@ -8,16 +8,17 @@
 
 char *aliasValue(char *wholeAl)
 {
-	int i = 0;
-	int len;
 	char *tmp = wholeAl;
+	char *result;
+	int i = 0;
 
-	while (tmp[i] != 39)
+	while (tmp[i] != '=')
+	{
 		i++;
-	tmp = (tmp + i + 1);
-	len = _strlen(tmp);
-	tmp[len - 1] = '\0';
-	return (tmp);
+	}
+	tmp += i + 1;
+	result = _strdup(tmp);
+	return (result);
 }
 
 /**
@@ -31,16 +32,18 @@ void checkAlias(arguments_t *args)
 	list_t *head;
 	char **cmds = args->toks;
 	int i = 0;
-	char *aliasVal, *tmp;
+	char *tmp;
 
+	if (_strcmp(cmds[0], "alias") == 0)
+		return;
 	while (cmds[i] != NULL)
 	{
 		head = get_alias(cmds[i], args);
 		if (head != NULL)
 		{
-			aliasVal = aliasValue(head->str);
-			tmp = _strdup(aliasVal);
-			_strcpy(cmds[i], tmp);
+			tmp = aliasValue(head->str);
+			free(args->toks[0]);
+			args->toks[0] = _strdup(tmp);
 			free(tmp);
 		}
 		i++;

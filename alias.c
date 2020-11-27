@@ -9,12 +9,23 @@
 void print_alias(arguments_t *args)
 {
 	list_t *head = args->head_alias;
+	char *str;
+	int i;
 
 	if (head == NULL)
 		return;
 	while (head)
 	{
-		_puts(head->str, 1);
+		i = 0;
+		str = head->str;
+		while (str[i])
+		{
+			_putchar(str[i], 1);
+			if (str[i] == '=')
+				_putchar(39, 1);
+			i++;
+		}
+		_putchar(39, 1);
 		_puts("\n", 1);
 		head = head->next;
 	}
@@ -27,31 +38,22 @@ void print_alias(arguments_t *args)
   * Return: 0 if a = b or 1 otherwise
   */
 
-int scan_match(char *a, char *b)
+int scan_match(char *a, char *b, arguments_t *args)
 {
-	char var1[100];
-	char var2[100];
 	int i;
 
-	if (_strchr(a, '=') != NULL)
+	if (_strcmp(args->toks[0], "alias") == 0)
 	{
-		for (i = 0; a[i] != '='; i++)
-			var1[i] = a[i];
-		var1[i] = '\0';
+		i = 0;
+		while (a[i] != '=')
+			i++;
+		if (_strncmp(a, b, i) == 0)
+			return (0);
+		else
+			return (1);
 	}
-	else
-	{
-		for (i = 0; a[i] != '\0'; i++)
-			var1[i] = a[i];
-		var1[i] = '\0';
-	}
-	for (i = 0; b[i] != '='; i++)
-		var2[i] = b[i];
-	var2[i] = '\0';
-
-	if (_strcmp(var1, var2) == 0)
+	if (_strcmp(a, b) == 0)
 		return (0);
-
 	return (1);
 }
 
@@ -71,7 +73,7 @@ list_t *get_alias(char *comp, arguments_t *args)
 		return (NULL);
 	while (head)
 	{
-		cmp = scan_match(comp, head->str);
+		cmp = scan_match(comp, head->str, args);
 		if (cmp == 0)
 		{
 			return (head);
