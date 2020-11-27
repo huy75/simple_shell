@@ -15,10 +15,10 @@ char *path2(char *av0, arguments_t *args)
 	int check_bin = _strcmp("/bin/", av0);
 
 	if (_strcmp("./", av0) == 0 || _strcmp("../", av0) == 0 || check_bin == 0)
+	{
 		return ((stat(av0, &st) == 0) ? (str_concat(av0, "")) : NULL);
-
+	}
 	pathcopy = _getenvLL2("PATH", args);
-	printf("av0: %s, path: %s\n", av0, pathcopy);
 	if (pathcopy == NULL)
 	{
 		errno = ENOENT;
