@@ -50,6 +50,13 @@ void checkAlias(arguments_t *args)
 	}
 }
 
+/**
+  * print_uniq_alias - prints unique alias
+  * @args: agrs
+  * @alias: the alias to print
+  * Return: void
+  */
+
 void print_uniq_alias(arguments_t *args, char *alias)
 {
 	list_t *head = args->head_alias;

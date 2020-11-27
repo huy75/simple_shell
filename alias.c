@@ -35,6 +35,7 @@ void print_alias(arguments_t *args)
   * scan_match - compares alias variables
   * @a: string 1
   * @b: string 2
+  * @args: args
   * Return: 0 if a = b or 1 otherwise
   */
 

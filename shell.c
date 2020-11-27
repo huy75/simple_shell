@@ -34,7 +34,7 @@ int main(int argc, char **argv, char **env)
 		arguments.lCnt++;
 /*		writeHist(&arguments); */
 		arguments.toks = parseBuffer(arguments.buf);
-		checkAlias(&arguments);
+/*		checkAlias(&arguments); */
 		if (builtins(&arguments)) /* run built-in function */
 		{
 			if (runExec(&arguments)) /* exec in PATH */
