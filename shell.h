@@ -19,7 +19,7 @@
 #define DELIMITERS " \t\r\n\v\f"
 #define PROMPT "$ "
 #define PRSIZE _strlen(PROMPT)
-#define TOKENBUF 10
+#define TOKENBUF 5
 #define HISTORY ".simple_shell_history"
 #define HISTSIZE 4096
 #define EXITERR 100
