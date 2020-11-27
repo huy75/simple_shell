@@ -31,13 +31,11 @@ char *_getenvVAL(char *var, arguments_t *args)
 char *_getenvLL2(char *name, arguments_t *args)
 {
 	char *sub = NULL;
-	int compare;
 	list_t *head = args->head;
 
 	while (head)
 	{
-		compare =  (_strlen(name) == _strlen(head->str));
-		if (!_strcmp(name, head->str) && compare)
+		if (!_strcmp(name, head->str))
 		{
 			sub = _strchr2(head->str, '=');
 			return (sub);
