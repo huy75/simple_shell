@@ -48,7 +48,7 @@ int main(int argc, char **argv, char **env)
 	}
 	free(arguments.buf), arguments.buf = NULL;
 	freeToks(&arguments), freeEnv(&arguments), freeAlias(&arguments);
-	return (0);
+	return (arguments.exitS);
 }
 
 /**
