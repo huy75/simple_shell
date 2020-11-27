@@ -123,6 +123,7 @@ char *_strchr(char *s, char c);
 /* strings3.c module */
 char *_strdup(char *str);
 char *_strcat(char *dest, char *src);
+char *_strchr2(char *s, char c);
 
 /* builtins.c module */
 int builtins(arguments_t *args);

@@ -72,10 +72,7 @@ void arrange_env(char *new_pwd, char *old_pwd, arguments_t *args)
 int _bCd(arguments_t *args)
 {
 	char old_pwd[120] = "";
-	char *new_pwd = NULL;
-
-
-	(void)args;
+	char *new_pwd = NULL, *tmp_pwd = NULL;
 
 	getcwd(old_pwd, 120);
 	if (args->toks[1] == NULL)
@@ -96,7 +93,7 @@ int _bCd(arguments_t *args)
 			return (0);
 		}
 		chdir(new_pwd);
-		_puts(new_pwd, 1);
+		_puts(new_pwd, 1), _putchar('\n', 1);
 		arrange_env(new_pwd, old_pwd, args);
 	}
 	else
@@ -104,8 +101,11 @@ int _bCd(arguments_t *args)
 		new_pwd = args->toks[1];
 		if (chdir(new_pwd) == -1)
 		{
-			errno = ENOTDIR;
-			printErr(args);
+			errno = ENOTDIR, printErr(args);
+			getcwd(new_pwd, 120);
+			tmp_pwd = _getenvLL2("HOME", args);
+			chdir(tmp_pwd);
+			arrange_env(new_pwd, tmp_pwd, args);
 			return (0);
 		}
 		arrange_env(new_pwd, old_pwd, args);

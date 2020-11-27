@@ -51,3 +51,29 @@ char *_strcat(char *dest, char *src)
 
 	return (dest);
 }
+
+/**
+ * _strchr2 - locates a character in a string.
+ * @s: the string
+ * @c: the character
+ * Return: a pointer to the first occurence + 1 or NULL if not found.
+ */
+
+char *_strchr2(char *s, char c)
+{
+	while (*s)
+	{
+		if (*s == c)
+		{
+			s++;
+			return (s);
+		}
+		s++;
+	}
+	if (*s == c)
+	{
+		s++;
+		return (s);
+	}
+	return (0);
+}

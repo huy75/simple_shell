@@ -30,13 +30,16 @@ char *_getenvVAL(char *var, arguments_t *args)
  */
 char *_getenvLL2(char *name, arguments_t *args)
 {
+	char *sub = NULL;
+
 	list_t *head = args->head;
 
 	while (head)
 	{
 		if (!_strcmp(name, head->str))
 		{
-			return (head->str);
+			sub = _strchr2(head->str, '=');
+			return (sub);
 		}
 		head = head->next;
 	}
